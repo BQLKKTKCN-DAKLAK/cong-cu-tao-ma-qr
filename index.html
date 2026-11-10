@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#071d45" />
+  <meta name="description" content="Công cụ tạo mã QR từ đường link, tùy chỉnh hình dạng, màu sắc, logo và xuất PNG/SVG. Không yêu cầu đăng nhập." />
+  <title>Công cụ tạo mã QR | Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+  <link rel="stylesheet" href="./src/styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="top-header">
+      <p class="agency">BAN QUẢN LÝ CÁC KHU KINH TẾ<br />VÀ CÁC KHU CÔNG NGHIỆP ĐẮK LẮK</p>
+      <div class="ornament" aria-hidden="true"><span></span><b>❦</b><span></span></div>
+      <h1>CÔNG CỤ TẠO MÃ QR</h1>
+      <div class="gold-line" aria-hidden="true"></div>
+    </header>
+
+    <main class="workspace">
+      <div class="left-panel">
+        <section class="url-area" aria-labelledby="url-title">
+          <h2 id="url-title"><span class="title-icon" aria-hidden="true">↗</span> Nhập hoặc dán URL</h2>
+          <div class="url-field"><span aria-hidden="true">◎</span><input id="url-input" type="url" inputmode="url" autocomplete="url" placeholder="Dán URL tại đây (https://...)" aria-describedby="url-helper url-error" spellcheck="false"/><button id="clear-url" class="clear-input" type="button" title="Xóa URL" aria-label="Xóa URL">×</button></div>
+          <p id="url-helper" class="helper">Hỗ trợ đường link website, PDF, hình ảnh hoặc liên kết Google Drive đã được chia sẻ.</p>
+          <p id="url-error" class="validation-error" role="alert" hidden></p>
+        </section>
+
+        <section class="customize" aria-labelledby="customize-title">
+          <h2 id="customize-title"><span class="title-icon" aria-hidden="true">⚙</span> Tùy chỉnh mã QR</h2>
+          <div class="tabs" role="tablist" aria-label="Tùy chỉnh mã QR">
+            <button type="button" class="tab is-active" role="tab" id="tab-shape" aria-selected="true" aria-controls="panel-shape" data-tab="shape"><span aria-hidden="true">▦</span> Hình dạng</button>
+            <button type="button" class="tab" role="tab" id="tab-color" aria-selected="false" aria-controls="panel-color" data-tab="color" tabindex="-1"><span aria-hidden="true">◉</span> Màu sắc</button>
+            <button type="button" class="tab" role="tab" id="tab-logo" aria-selected="false" aria-controls="panel-logo" data-tab="logo" tabindex="-1"><span aria-hidden="true">▧</span> Logo</button>
+          </div>
+
+          <div class="tab-panel" id="panel-shape" role="tabpanel" aria-labelledby="tab-shape">
+            <div class="setting-group">
+              <h3>Kiểu dáng QR</h3>
+              <div id="dot-style-options" class="visual-choices" aria-label="Kiểu dáng điểm QR"></div>
+            </div>
+            <div class="setting-group">
+              <div class="setting-heading"><h3>Góc bo tròn điểm QR</h3><output id="roundness-value" for="roundness">0%</output></div>
+              <input id="roundness" type="range" min="0" max="100" value="0" step="5" />
+              <p class="hint">Có tác dụng rõ nhất với kiểu điểm vuông và vuông bo góc.</p>
+            </div>
+            <div class="setting-group">
+              <h3>Kiểu mắt bên ngoài</h3>
+              <div id="eye-outer-options" class="visual-choices" aria-label="Kiểu mắt ngoài"></div>
+            </div>
+            <div class="setting-group">
+              <h3>Kiểu mắt bên trong</h3>
+              <div id="eye-inner-options" class="visual-choices" aria-label="Kiểu mắt trong"></div>
+            </div>
+            <div class="setting-group">
+              <h3>Mức độ sửa lỗi</h3>
+              <p class="hint">Mức cao giúp tăng khả năng quét khi có logo hoặc bị che một phần.</p>
+              <div id="ecc-options" class="segment-wrap" aria-label="Mức sửa lỗi"></div>
+              <p id="ecc-notice" class="hint emph" hidden>Khi có logo, hệ thống tự dùng mức H để tăng khả năng quét.</p>
+            </div>
+            <div class="setting-group last">
+              <h3>Mật độ điểm chấm <span class="info-mark" title="Thay đổi kích thước hiển thị các điểm, không thay đổi dữ liệu trong QR." aria-label="Thay đổi kích thước hiển thị các điểm, không thay đổi dữ liệu trong QR.">ⓘ</span></h3>
+              <p class="hint">Ba mức độ đầy của điểm QR; không làm thay đổi cấu trúc dữ liệu.</p>
+              <div id="density-options" class="segment-wrap triple" aria-label="Độ đầy điểm chấm"></div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="panel-color" role="tabpanel" aria-labelledby="tab-color" hidden>
+            <div class="setting-group">
+              <h3>Màu QR</h3>
+              <div id="foreground-palette" class="color-swatches" aria-label="Màu QR gợi ý"></div>
+              <div class="color-form"><label for="foreground-picker">Chọn màu</label><input type="color" id="foreground-picker" value="#000000" /><label for="foreground-hex">Mã HEX</label><input type="text" id="foreground-hex" value="#000000" maxlength="7" spellcheck="false" /></div>
+            </div>
+            <div class="setting-group">
+              <h3>Màu nền QR</h3>
+              <div id="background-palette" class="color-swatches" aria-label="Màu nền gợi ý"></div>
+              <div class="color-form"><label for="background-picker">Chọn màu</label><input type="color" id="background-picker" value="#FFFFFF" /><label for="background-hex">Mã HEX</label><input type="text" id="background-hex" value="#FFFFFF" maxlength="7" spellcheck="false" /></div>
+              <label class="toggle-row"><input id="background-transparent" type="checkbox" /> Nền trong suốt (PNG/SVG)</label>
+            </div>
+            <div class="notice"><span aria-hidden="true">ⓘ</span><p>Nên chọn màu điểm QR đậm và nền sáng, tương phản cao để máy ảnh dễ nhận diện.</p></div>
+          </div>
+
+          <div class="tab-panel" id="panel-logo" role="tabpanel" aria-labelledby="tab-logo" hidden>
+            <div class="setting-group">
+              <h3>Tải lên logo</h3>
+              <div id="logo-dropzone" class="logo-dropzone" role="group" aria-label="Tải logo PNG">
+                <div class="upload-icon" aria-hidden="true">⇧</div>
+                <strong>Chọn tệp PNG hoặc kéo thả vào đây</strong>
+                <p class="hint">Khuyến nghị nền trong suốt, tối đa 2 MB</p>
+                <button type="button" id="choose-logo" class="outline-button">▧ &nbsp; Chọn logo</button>
+                <input type="file" id="logo-input" accept="image/png,.png" class="visually-hidden" aria-label="Tải logo PNG" />
+              </div>
+              <div id="logo-file" class="logo-file" hidden><img id="logo-thumb" alt="Xem trước logo đã tải lên" /><div><strong id="logo-filename"></strong><span id="logo-filesize"></span></div><button type="button" id="remove-logo" title="Xóa logo" aria-label="Xóa logo">✕</button></div>
+            </div>
+            <div class="setting-group">
+              <div class="setting-heading"><h3>Kích thước logo</h3><output id="logo-size-value" for="logo-size">15%</output></div>
+              <input id="logo-size" type="range" min="5" max="22" value="15" step="1" />
+              <div class="range-ends"><span>5%</span><span>22%</span></div>
+            </div>
+            <div class="setting-group">
+              <h3>Nền logo</h3>
+              <div id="logo-background-options" class="segment-wrap triple"></div>
+            </div>
+            <div class="setting-group">
+              <div class="setting-heading"><h3>Độ bo góc logo</h3><output id="logo-radius-value" for="logo-radius">8 px</output></div>
+              <input id="logo-radius" type="range" min="0" max="24" value="8" step="1" />
+            </div>
+            <div class="setting-group last">
+              <h3>Viền logo</h3>
+              <div id="logo-border-options" class="segment-wrap triple"></div>
+            </div>
+            <div class="notice"><span aria-hidden="true">ⓘ</span><p>Giữ logo vừa phải và kiểm tra bằng điện thoại trước khi in hoặc phát hành QR.</p></div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="preview-column" aria-label="Xem trước và xuất mã QR">
+        <div class="preview-card">
+          <div id="preview-stage" class="preview-stage" aria-live="polite" aria-label="Khu vực xem trước mã QR">
+            <div id="qr-placeholder" class="qr-placeholder"><div class="placeholder-glyph" aria-hidden="true">▦</div><p>Dán URL hợp lệ để<br />xem mã QR thời gian thực</p></div>
+            <div id="qr-preview" class="qr-preview" hidden></div>
+          </div>
+          <div class="export-controls">
+            <div class="setting-heading"><label for="output-size">Kích thước QR</label><output id="output-size-value" for="output-size">1000 px</output></div>
+            <input id="output-size" type="range" min="200" max="2000" step="100" value="1000" />
+            <div class="range-ends"><span>200</span><span>600</span><span>1000</span><span>1400</span><span>2000</span></div>
+          </div>
+          <div class="format-row"><label for="export-format">Định dạng xuất</label><select id="export-format"><option value="png">PNG</option><option value="svg">SVG</option></select></div>
+          <button type="button" id="download-btn" class="primary-button" disabled><span aria-hidden="true">⇩</span> Tải xuống</button>
+          <button type="button" id="copy-btn" class="secondary-button" disabled>Sao chép mã QR</button>
+          <p id="status" class="status" role="status" aria-live="polite">Đang tải thư viện tạo mã QR...</p>
+        </div>
+        <p class="preview-note">QR dẫn đến đường link anh cung cấp. Tệp PDF hoặc hình ảnh không được tải lên ứng dụng.</p>
+      </aside>
+    </main>
+    <footer class="footer">Công cụ tạo mã QR • V1.0 • Xử lý trên trình duyệt • Không yêu cầu đăng nhập</footer>
+  </div>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
