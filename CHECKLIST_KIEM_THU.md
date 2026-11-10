@@ -1,23 +1,30 @@
-# CHECKLIST KIỂM THỬ SAU KHI TRIỂN KHAI
+# CHECKLIST KIỂM THỬ V1.2
 
-- [ ] Mở được địa chỉ Cloudflare Pages, tên cơ quan/tiêu đề hiển thị đầy đủ dấu tiếng Việt.
-- [ ] Dán đường link `https://example.com`, QR xem trước tự xuất hiện.
-- [ ] Xóa link: không còn QR; nút tải và sao chép bị khóa.
-- [ ] Nhập URL sai hoặc dạng `javascript:`: xuất cảnh báo, không tạo QR.
-- [ ] Tab Hình dạng: đổi điểm vuông/tròn/bo góc/thoi/cánh mềm/ô dài, mắt ngoài/trong.
-- [ ] Mức sửa lỗi L/M/Q/H thay đổi được (nếu không có logo).
-- [ ] Mật độ Thưa/Trung bình/Cao đổi được mà QR vẫn quét được với URL thử.
-- [ ] Tab Màu sắc: **mặc định tích Nền trong suốt**; khi xuất PNG và mở trong phần mềm đồ họa phải có kênh alpha.
-- [ ] Với nền trong suốt, đặt QR lên nền trắng/sáng và thử quét thành công.
-- [ ] Tab Logo: tải PNG, hiển thị tên/ảnh thu nhỏ, chỉnh kích thước, nền, bo góc, vùng bảo vệ; xóa logo.
-- [ ] Ba mức Viền logo: **Không viền / Vừa / Rộng** làm thay đổi rõ khoảng cách điểm QR tới mép logo và vẫn quét thành công với logo thực tế.
-- [ ] Có logo: sửa lỗi tự chuyển H; xem trước cập nhật.
-- [ ] Chuyển tab: chỉ hiển thị đúng nội dung một tab tại một thời điểm.
-- [ ] Tải PNG kích thước 200/1000/2000 px; mã quét được.
-- [ ] Tải SVG, mở bằng trình duyệt và phần mềm đồ họa; logo nằm giữa đúng vị trí.
-- [ ] Sao chép QR vào Word hoặc PowerPoint qua Clipboard API trên HTTPS.
-- [ ] Mở giao diện trên điện thoại: không tràn ngang, các tab/nút đủ rộng.
-- [ ] Dùng QR liên kết tới PDF/ảnh trên Google Drive: người quét có quyền mở tệp.
-- [ ] Kiểm tra khi làm mới trang: nội dung URL/logo không được lưu lại.
-- [ ] Kiểm tra năm PNG trong `assets/icons/` hiển thị trên Cloudflare, không có ô vuông thay thế.
-- [ ] Chân trang hiển thị đúng dòng bản quyền Văn phòng Ban.
+## A. Kiểm thử tự động đã thực hiện
+
+- [x] `npm run check`: cú pháp JavaScript hợp lệ.
+- [x] `npm test`: 14/14 bài kiểm thử mã nguồn đạt.
+- [x] `npm run build`: tạo được `dist/` cho Cloudflare Pages.
+- [x] Ảnh icon local tải thành công trong trang thử nghiệm.
+- [x] Ba tab chuyển nội dung độc lập.
+- [x] Render SVG từ ma trận QR chuẩn được sinh riêng trong bộ kiểm thử.
+- [x] Xuất PNG mặc định có nền alpha trong suốt, kích thước 1024 px và OpenCV giải mã đúng URL.
+- [x] Đọc logo PNG, hiển thị trong QR, OpenCV giải mã đúng URL.
+- [x] Ba mức vùng trống quanh logo là khác nhau, QR với URL thử nghiệm vẫn giải mã đúng ở cả ba mức.
+- [x] Xuất SVG có logo PNG nhúng theo data URI và kích thước 512 px khi chọn tương ứng.
+- [x] Không tràn ngang ở 320, 390, 640, 800 và 1024 px.
+- [x] Không phát sinh lỗi JavaScript trong phiên kiểm thử Chromium.
+
+**Giới hạn:** Môi trường kiểm thử không có kết nối CDN, nên trình duyệt được cung cấp ma trận QR chuẩn thay cho bước tải qrcode-generator từ CDN. V1.2 chưa được kiểm thử trên domain Cloudflare Pages thực tế của đơn vị.
+
+## B. Kiểm tra thủ công sau khi triển khai trên Cloudflare
+
+- [ ] Tên cơ quan đúng dấu; tiêu đề đỏ, nền sáng; footer chính xác.
+- [ ] Dán URL có thể quét và mở đúng website/tệp có quyền truy cập.
+- [ ] Bấm 3 tab; chỉ tab được chọn hiện điều khiển.
+- [ ] Đổi 6 kiểu điểm, các kiểu mắt, màu sắc, mật độ, sửa lỗi.
+- [ ] Màu nền QR mặc định trong suốt.
+- [ ] Tải thử logo PNG cơ quan, điều chỉnh kích thước/viền/nền.
+- [ ] Xuất 512/1024/2048px; PNG và SVG; sao chép trong trình duyệt HTTPS.
+- [ ] Quét mã QR với logo trên điện thoại Android/iOS; quét thử khi in thực tế.
+- [ ] Kiểm tra giao diện điện thoại không bị tràn ngang; cập nhật cache Ctrl+F5.

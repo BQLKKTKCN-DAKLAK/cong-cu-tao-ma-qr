@@ -1,131 +1,91 @@
-# CÔNG CỤ TẠO MÃ QR — V1.1
+# CÔNG CỤ TẠO MÃ QR – PHIÊN BẢN V1.2
 
-**Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk**
+**Đơn vị:** Văn phòng Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk  
+**Giao diện:** Nền sáng (trắng – xanh nhạt), xanh dương chủ đạo, tiêu đề phần mềm màu đỏ – theo mẫu thiết kế đã được duyệt.  
+**Mô hình:** Website tĩnh chạy trực tiếp trong trình duyệt; không yêu cầu tài khoản, không có cơ sở dữ liệu, không gửi nội dung link/logo lên máy chủ của ứng dụng.
 
-Công cụ web tĩnh tạo mã QR từ **đường link URL** (website, liên kết đến tệp PDF, hình ảnh, Google Drive...), có xem trước trực tiếp, thiết kế các điểm QR/mắt QR, chỉnh màu, tải logo PNG, xuất PNG hoặc SVG. Phù hợp phục vụ hội nghị, tài liệu, giấy mời và các công việc văn phòng.
+## 1. Chức năng
 
-![Giao diện Logo đã duyệt](docs/giao-dien-logo-da-duyet.png)
+- Nhập hoặc dán đường link **HTTP(S)** đến website, PDF, hình ảnh hoặc Google Drive (người quét QR vẫn cần có quyền truy cập tài liệu đích).
+- **Hình dạng:** 6 kiểu điểm QR; tùy chỉnh độ bo; 5 kiểu mắt ngoài, 6 kiểu mắt trong; 4 mức sửa lỗi; 3 mức độ đầy điểm (Thưa/Trung bình/Cao). Mức “mật độ” chỉ ảnh hưởng cách vẽ, không thay đổi dữ liệu QR.
+- **Màu sắc:** màu điểm, màu nền, bảng màu, mã HEX; **nền mặc định trong suốt**.
+- **Logo:** tải ảnh PNG, kéo thả, xem trước và bỏ ảnh; điều chỉnh tỷ lệ logo, nền, bo góc; 3 mức khoảng trống bảo vệ **Không viền – Vừa – Rộng**. Khi có logo, tự động chọn sửa lỗi H.
+- **Xem trước theo thời gian thực:** đặt ở cột phải trên máy tính; nằm dưới phần tùy chỉnh trên điện thoại.
+- **Xuất tệp:** PNG/SVG; kích thước 512, 1024 hoặc 2048 px; sao chép PNG vào clipboard nếu trình duyệt hỗ trợ.
+- **Tương thích:** desktop, tablet, mobile, giao diện tiếng Việt. Các tab chỉ hiển thị đúng nhóm tùy chỉnh đang chọn.
 
-## Thay đổi trong bản V1.1 (10/11/2026)
-
-- Sửa hiển thị dấu tiếng Việt ở tên cơ quan: dùng font Segoe UI/Arial, tăng giãn dòng.
-- Bỏ họa tiết ở đường kẻ dưới tên cơ quan; giữ một đường kẻ ngang đơn giản.
-- Đưa 5 icon PNG thiết kế riêng vào `assets/icons/`, dùng trực tiếp từ mã nguồn.
-- Tăng cỡ chữ trong bảng tùy chỉnh và các nút chọn.
-- QR mặc định **nền trong suốt**, phù hợp chèn lên tài liệu nền sáng.
-- **Viền logo** nay là khoảng cách giữa mép logo và điểm QR (Không viền / Vừa / Rộng), không phải nét stroke vẽ lên logo.
-- Đổi đúng dòng bản quyền theo yêu cầu của Văn phòng Ban.
-
-**Đã kiểm thử:** Các bản PNG có và không có logo (bao gồm 3 mức vùng bảo vệ logo) giải mã thành công sau khi đặt trên nền trắng. QR nền trong suốt phải được trình bày trên nền đủ sáng và tương phản. Lưu ý khả năng quét còn tùy kích thước logo, đường link, màu điểm và máy quét; luôn kiểm tra bằng thiết bị thật trước khi in.
-
-## 1. Chức năng đã triển khai
-
-- Dán URL hợp lệ dạng `https://...` hoặc `http://...`, cập nhật mã QR sau khi chỉnh.
-- **Ba tab độc lập**: `Hình dạng`, `Màu sắc`, `Logo`; chỉ hiển thị nội dung của tab được chọn.
-- **Hình dạng**: sáu kiểu điểm dữ liệu; năm kiểu mắt ngoài, sáu kiểu mắt trong; điều chỉnh bo góc; bốn mức sửa lỗi L/M/Q/H; ba mức **độ đầy điểm chấm** Thưa/Trung bình/Cao.
-- **Màu sắc**: chọn màu điểm QR, màu nền, mã màu HEX; **mặc định nền trong suốt** khi xuất PNG/SVG.
-- **Logo**: chọn/kéo thả ảnh PNG (tối đa 2 MB, tối đa 4096 × 4096 px), xem tên, xóa, chỉnh kích thước 5–22%, nền logo (trong suốt/trắng/trắng bo góc), bo góc và **vùng trống bảo vệ quanh logo** (Không viền / Vừa / Rộng). Khi có logo, sử dụng sửa lỗi H.
-- Xem trước mã QR theo thời gian thực, chọn kích thước xuất **200–2000 px**, tải PNG hoặc SVG, sao chép PNG vào bộ nhớ tạm nếu trình duyệt cho phép.
-- Giao diện desktop và điện thoại. Không đăng nhập, không có cơ sở dữ liệu và không lưu lịch sử URL/logo.
-
-**Giới hạn kỹ thuật cần biết:** Việc chọn Thưa/Trung bình/Cao chỉ thay đổi **độ đầy/chừa khoảng cách của các mô-đun** trên ảnh hiển thị; không thay đổi số lượng mô-đun đã mã hóa, không thay đổi mật độ dữ liệu hoặc cấu trúc QR chuẩn. Kiểu mắt quá cách điệu hoặc logo quá lớn có thể giảm khả năng quét. Luôn thử quét bằng điện thoại trước khi in.
-
-## 2. Cấu trúc thư mục
+## 2. Cấu trúc mã nguồn
 
 ```text
-cong-cu-tao-ma-qr/
-├── index.html                    Trang ứng dụng
+cong-cu-tao-ma-qr-v1.2/
+├── index.html                 # Giao diện và cấu trúc 3 tab
 ├── src/
-│   ├── styles.css                Giao diện gốc, responsive
-│   ├── updates-v1.1.css          Bổ sung kiểu chữ và kích thước
-│   ├── app.js                     Chức năng tab, URL, logo, xuất file
-│   └── qr-renderer.js             Vẽ SVG từ ma trận QR
-├── assets/favicon.svg            Biểu tượng trang
-├── assets/icons/*.png            5 biểu tượng PNG mới cho giao diện
-├── vendor/                       Đặt thư viện QR để tự lưu trữ (không bắt buộc)
-├── scripts/build.mjs             Tạo thư mục dist/ để triển khai
+│   ├── styles.css             # Toàn bộ giao diện nền sáng, responsive
+│   ├── app.js                 # Điều khiển, tab, URL, logo, xuất file
+│   └── qr-renderer.js         # Vẽ SVG dựa trên ma trận QR chuẩn
+├── assets/
+│   ├── icons/                 # 14 ảnh PNG icon nội bộ
+│   └── favicon.svg
+├── vendor/                    # Tùy chọn thêm qrcode.min.js (MIT)
+├── scripts/
+│   ├── build.mjs              # Sao chép nguồn vào thư mục dist/
+│   └── make_icons.py          # Mã nguồn tái tạo icon PNG (không cần chạy khi deploy)
 ├── tests/
-│   ├── renderer.test.mjs         Kiểm thử Node (không cần package)
-│   └── browser_smoke.py          Kiểm thử có thể chạy tại máy phát triển
-├── docs/                         Hình ảnh phác họa, tài liệu tham khảo
-├── _headers                      HTTP security headers cho Cloudflare Pages
-├── robots.txt                    Khuyến nghị công cụ tìm kiếm không lập chỉ mục
-├── package.json                  Scripts build/test (không có package phụ thuộc)
-├── LICENSE-THIRD-PARTY.md        Thành phần mã nguồn mở
-├── HUONG_DAN_TRIEN_KHAI.md       Triển khai GitHub + Cloudflare Pages
-└── HUONG_DAN_CAP_NHAT_V1.1.md    Cập nhật từ bản V1.0
+│   ├── renderer.test.mjs      # 14 bài kiểm thử Node.js
+│   └── browser_smoke.py       # Kiểm thử trình duyệt (tùy chọn)
+├── docs/                      # Ảnh chụp giao diện thực tế
+├── _headers                   # Một số header bảo mật cơ bản
+├── package.json
+├── HUONG_DAN_TRIEN_KHAI.md
+├── HUONG_DAN_CAP_NHAT_V1.2.md
+├── CHANGELOG.md
+└── LICENSE-THIRD-PARTY.md
 ```
 
-## 3. Thư viện QR
+## 3. Thử nghiệm trên máy tính
 
-Để tạo ma trận QR chuẩn, ứng dụng dùng thư viện mã nguồn mở **qrcode-generator v1.4.4 (MIT)**, theo thứ tự:
-
-1. Tệp tự lưu trữ: `vendor/qrcode.min.js` (nếu có).
-2. Cloudflare cdnjs (truy cập qua Internet).
-3. jsDelivr (dự phòng).
-
-**Điều này nghĩa là ứng dụng mặc định cần kết nối mạng để lấy thư viện QR nếu chưa có tệp `vendor/qrcode.min.js`.** Mã QR sau đó được xử lý ngay trong trình duyệt. Khi người dùng dán URL hoặc chọn PNG, ứng dụng **không gửi nội dung URL hoặc tệp PNG đến máy chủ**, ngoại trừ các truy vấn duyệt/tải đường link đích mà chính người dùng thực hiện bên ngoài ứng dụng. Bản thân CDN vẫn nhận yêu cầu tải script (thông tin HTTP thông thường).
-
-Muốn không phụ thuộc CDN, lấy bản phân phối từ trang thư viện:
-
-`https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js`
-
-Lưu thành `vendor/qrcode.min.js` trong kho GitHub, giữ nguyên bản quyền MIT. Tạo lại bản triển khai; sau đó mã nguồn thư viện được phục vụ trực tiếp từ Cloudflare Pages của ứng dụng. Đây là **tùy chọn khuyến nghị** nếu dùng thường xuyên trong cơ quan.
-
-## 4. Chạy thử và kiểm tra
-
-Cần Node.js phiên bản 18 trở lên (chỉ để chạy script quản trị/test, không cần để người dùng sử dụng website).
+Yêu cầu Node.js 18+ nếu muốn kiểm thử hoặc dựng gói triển khai.
 
 ```bash
-npm test
 npm run check
+npm test
 npm run build
 ```
 
-Sau khi build sẽ có thư mục `dist/` chứa toàn bộ tệp website. Có thể thử cục bộ bằng cách sử dụng máy chủ tĩnh, ví dụ:
+Có thể mở môi trường phát triển bằng `npm run dev`, sau đó truy cập `http://localhost:8080`. **Không nên mở trực tiếp file `index.html` bằng `file://`**, vì JavaScript module trên nhiều trình duyệt bị giới hạn khi dùng giao thức file.
 
-```bash
-python -m http.server 8080
-```
+**Lưu ý thư viện:** Mặc định ứng dụng tải qrcode-generator 1.4.4 từ CDN nếu không tìm thấy `vendor/qrcode.min.js`. Không cần cài thêm package NPM để build. Nếu môi trường bị chặn CDN, đặt bản phân phối hợp lệ của thư viện này vào `vendor/qrcode.min.js` theo hướng dẫn trong `LICENSE-THIRD-PARTY.md`. Điều này là **phụ thuộc runtime**, không phải máy chủ chứa dữ liệu QR.
 
-Sau đó mở `http://localhost:8080/` bằng Chrome hoặc Edge. Khi thử theo cách này mà chưa đặt `vendor/qrcode.min.js`, máy tính phải truy cập được CDN. **Không mở trực tiếp `index.html` qua `file://`** do trình duyệt có thể hạn chế module JavaScript.
+## 4. Triển khai GitHub / Cloudflare Pages
 
-Để chạy thử ứng dụng sau build bằng Python:
+Xem [HUONG_DAN_TRIEN_KHAI.md](HUONG_DAN_TRIEN_KHAI.md). Nếu nâng cấp từ V1.1, xem [HUONG_DAN_CAP_NHAT_V1.2.md](HUONG_DAN_CAP_NHAT_V1.2.md).
 
-```bash
-cd dist
-python -m http.server 8080
-```
+- Framework preset: **None**
+- Build command: **`npm run build`**
+- Build output directory: **`dist`**
+- Root directory: **thư mục chứa `package.json` và `index.html`** (nếu repository đặt mã nguồn ở gốc thì để trống / mặc định)
+- Nhánh triển khai: theo cấu hình repo hiện hữu (thường là `main`)
 
-## 5. Đưa lên GitHub và Cloudflare Pages
+> Website không có cơ chế đăng nhập, vì vậy nếu triển khai trên `*.pages.dev` mà không thiết lập thêm giới hạn truy cập thì **địa chỉ website có thể được người ngoài truy cập**. “Sử dụng cho cơ quan” không có nghĩa là tự động được bảo vệ riêng tư. Mã QR không cấp quyền đọc tài liệu mà người quét chưa có.
 
-Đọc **[HUONG_DAN_TRIEN_KHAI.md](HUONG_DAN_TRIEN_KHAI.md)**. Cấu hình chính:
+## 5. Các lưu ý quan trọng
 
-| Thiết lập Cloudflare Pages | Giá trị |
-|---|---|
-| Dự án | Pages + kết nối kho GitHub |
-| Framework preset | None / Không dùng framework |
-| Production branch | `main` |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-| Root directory | `/` (mặc định) |
+1. Mã QR chỉ chứa đường link, **không chứa nguyên file PDF hoặc hình ảnh**.
+2. Khả năng quét phụ thuộc vào độ tương phản, kích thước in, màu nền, mật độ điểm, tỷ lệ logo và độ dài URL. Trước khi phát hành chính thức nên quét thử từ nhiều điện thoại, trên nền trắng và nền thực tế.
+3. Nền QR trong suốt chỉ phù hợp khi đặt trên nền đủ sáng và có độ tương phản với điểm QR. QR chứa logo lớn / khoảng bảo vệ rộng có thể khó quét ở một số trường hợp.
+4. QR tĩnh sẽ tiếp tục dẫn đến **đúng URL đã mã hóa**; nếu URL bị thay đổi, bị khóa quyền hoặc tệp bị xóa thì quét QR không còn truy cập được.
+5. Không có cơ sở dữ liệu, không ghi lịch sử người dùng. Logo chỉ đọc trong bộ nhớ trình duyệt hiện tại, không tải lên máy chủ ứng dụng.
 
-Mỗi lần đẩy thay đổi vào nhánh `main`, Cloudflare Pages sẽ xây dựng lại bản website. Không cần Cloudflare Workers, cơ sở dữ liệu, Google Sheet hay tên miền riêng.
+## 6. Kiểm thử đã thực hiện cho bản V1.2
 
-## 6. Lưu ý khi dùng trong cơ quan
+- 14/14 bài kiểm thử JavaScript (Node.js).
+- Kiểm tra trong Chromium với ma trận QR chuẩn được **cung cấp sẵn từ bộ kiểm thử** (không phải kiểm thử kết nối CDN): nhập link, chuyển tab, render SVG, xuất PNG và SVG, logo PNG, ba mức khoảng trống bảo vệ, nền PNG trong suốt.
+- Giải mã thử PNG xuất ra bằng OpenCV với URL mẫu `https://example.com/tai-lieu.pdf`: **đạt**, bao gồm cả ba mức khoảng trống quanh logo.
+- Kiểm tra tràn chiều ngang tại các kích thước viewport 320, 390, 640, 800, 1024 px: **đạt**.
+- Chưa kiểm thử trực tiếp quá trình triển khai trên tài khoản Cloudflare và khả năng tải CDN thực tế từ website của cơ quan.
 
-- **Ứng dụng mở**: đường dẫn website có thể được bất kỳ người nào truy cập nếu biết URL. `robots.txt` chỉ hạn chế lập chỉ mục, không phải biện pháp bảo mật.
-- Nếu mã QR trỏ đến PDF/ảnh trong Google Drive, người quét phải có quyền xem theo cấu hình chia sẻ tệp đó. Chỉ cần dán đường link, không tải tài liệu lên công cụ.
-- Mã QR tĩnh không có thời hạn sử dụng do phần mềm đặt ra. Nếu tệp đích bị xóa, bị đổi link hoặc mất quyền truy cập, QR sẽ không mở được.
-- Không dùng công cụ này như giải pháp lưu trữ/bảo mật tài liệu mật hoặc nhạy cảm.
-- Để QR quét tốt, nên dùng **mã QR màu đậm, nền sáng, độ đầy Cao, kiểu mắt vuông**, tránh logo quá lớn.
-- Đường link có ký tự Unicode được chuẩn hóa sang URL mã hóa phần trăm trước khi tạo QR, giúp tương thích thư viện mã hóa byte.
+## 7. Bản quyền trong ứng dụng
 
-## 7. Kiểm thử đã thực hiện khi bàn giao
+> Công cụ tạo mã QR • Bản quyền thuộc Văn phòng Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk
 
-- `npm test`: 14 ca kiểm thử JavaScript thành công.
-- `npm run check`: tệp JavaScript không có lỗi cú pháp.
-- `npm run build`: tạo `dist/index.html` thành công.
-- Thử nghiệm Chromium với **ma trận QR được tạo từ thư viện Python**: tải PNG không logo và có logo ở cả 3 mức vùng bảo vệ, tất cả được OpenCV giải mã đúng URL thử nghiệm sau khi ghép lên nền trắng; xuất SVG chứa logo PNG cũng thành công; chuyển tab chỉ hiện đúng nhóm chức năng.
-
-**Chưa xác minh trực tiếp** tốc độ hoặc khả năng tải thư viện QR qua CDN từ môi trường Cloudflare Pages thực tế, vì môi trường xây dựng hiện tại hạn chế truy cập mạng ngoài. Cần kiểm tra lại URL đầu tiên trên website đã triển khai theo checklist kèm theo.
+Thành phần nguồn mở của bên thứ ba: xem [`LICENSE-THIRD-PARTY.md`](LICENSE-THIRD-PARTY.md).

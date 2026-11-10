@@ -1,8 +1,8 @@
 {
   "name": "cong-cu-tao-ma-qr",
   "private": true,
-  "version": "1.1.0",
-  "description": "Công cụ tạo mã QR cho đường link, chạy hoàn toàn trên trình duyệt.",
+  "version": "1.2.0",
+  "description": "Công cụ tạo mã QR - giao diện nền sáng - Văn phòng Ban Quản lý các KKT và KCN Đắk Lắk",
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
@@ -10,7 +10,5 @@
     "check": "node --check src/app.js && node --check src/qr-renderer.js",
     "build": "node scripts/build.mjs"
   },
-  "engines": {
-    "node": ">=18"
-  }
+  "engines": { "node": ">=18" }
 }

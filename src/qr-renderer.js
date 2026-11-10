@@ -104,7 +104,7 @@ export function buildQrSvg(matrix, options = {}) {
   if (!EYE_INNER_TYPES.some(e=>e.value===cfg.eyeInner)) cfg.eyeInner='square';
   const ratio=DENSITIES.find(e=>e.value===cfg.density)?.scale ?? 1;
   const quiet=4, view=n+quiet*2;
-  const size=Math.min(2000,Math.max(200,Number(cfg.outputSize)||1000));
+  const size=Math.min(4096,Math.max(200,Number(cfg.outputSize)||1024));
   let out=[`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 ${view} ${view}" shape-rendering="geometricPrecision" role="img" aria-label="Mã QR">`,`<title>Mã QR</title>`];
   if(!cfg.transparent) out.push(rect(0,0,view,view,0,cfg.bg));
 

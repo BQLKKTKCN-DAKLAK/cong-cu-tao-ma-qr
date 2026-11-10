@@ -6,8 +6,8 @@ import {
 const $=id=>document.getElementById(id);
 const state={
   url:'',dotType:'square',eyeOuter:'square',eyeInner:'square',roundness:0,ecc:'H',density:'high',
-  fg:'#000000',bg:'#FFFFFF',transparent:true,logoData:'',logoSize:15,
-  logoBackground:'transparent',logoRadius:8,logoBorder:'none',outputSize:1000,
+  fg:'#0B3D7E',bg:'#FFFFFF',transparent:true,logoData:'',logoSize:15,
+  logoBackground:'transparent',logoRadius:8,logoBorder:'none',outputSize:1024,
 };
 let libraryReady=false,svgMarkup='',timer=null,renderSerial=0;
 const svgPlaceholder=$('qr-placeholder');
@@ -150,7 +150,7 @@ function makeOptions(){
   makeChoice('density-options',DENSITIES,'density');
   makeChoice('logo-background-options',[{value:'transparent',label:'Trong suốt'},{value:'white',label:'Nền trắng'},{value:'rounded-white',label:'Bo góc nền'}],'logoBackground');
   makeChoice('logo-border-options',[{value:'none',label:'Không viền'},{value:'thin',label:'Vừa'},{value:'medium',label:'Rộng'}],'logoBorder');
-  makePalette('foreground-palette','fg',['#000000','#F4511E','#008FA6','#35A553','#8158BD','#EC5555','#FFB200','#079D9F']);
+  makePalette('foreground-palette','fg',['#0B3D7E','#000000','#F4511E','#008FA6','#35A553','#8158BD','#EC5555','#FFB200','#079D9F']);
   makePalette('background-palette','bg',['#FFFFFF','#F0F0F0','#FFF3D5','#DCEBFF','#DCE2FF','#FCE1E6','#D6FBE1','#E7F4E9'],true);
 }
 function bindTabs(){
@@ -280,7 +280,7 @@ async function exportQr(copy=false){
     // Render lại ở trạng thái hiện tại trước khi xuất tránh bản xem trước bị cũ.
     render();
     if(!svgMarkup)throw new Error('Mã QR chưa sẵn sàng.');
-    const format=$('export-format').value;
+    const format=document.querySelector('input[name="format"]:checked')?.value || 'png';
     if(copy){
       if(!navigator.clipboard?.write||typeof ClipboardItem==='undefined')throw new Error('Trình duyệt không hỗ trợ sao chép hình ảnh. Hãy tải PNG.');
       const blob=await svgToPng(svgMarkup,state.outputSize);
@@ -305,7 +305,7 @@ function bindBasics(){
   bindSlider('roundness','roundness','%');
   bindSlider('logo-size','logoSize','%');
   bindSlider('logo-radius','logoRadius',' px');
-  bindSlider('output-size','outputSize',' px');
+  $('output-size').addEventListener('change',e=>{state.outputSize=Number(e.target.value);$('output-size-value').textContent=`${state.outputSize} px`;scheduleRender();});
   $('download-btn').addEventListener('click',()=>exportQr(false));
   $('copy-btn').addEventListener('click',()=>exportQr(true));
 }
