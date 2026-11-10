@@ -1,3 +1,8 @@
+## V1.2.2 – Màu đen mặc định và bố trí mức sửa lỗi
+- Màu điểm QR mặc định chuyển về `#000000` (đen).
+- Bốn tùy chọn mức sửa lỗi L, M, Q, H được bố trí trên một hàng ngang.
+- Giữ nguyên các chức năng V1.2.1, không thay đổi thuật toán tạo/giải mã QR.
+
 ## V1.2.1 – Điều chỉnh xuất ảnh và logo
 - Bổ sung lề QR gọn 2 mô-đun (mặc định) và lề chuẩn 4 mô-đun. Lưu ý lề chuẩn nên dùng trong môi trường quét khó.
 - Cho phép M/Q/H khi có logo, hạn chế kích cỡ theo mức sửa lỗi; tự nâng từ L lên M nếu tải logo.

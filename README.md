@@ -1,4 +1,4 @@
-# CÔNG CỤ TẠO MÃ QR – PHIÊN BẢN V1.2.1
+# CÔNG CỤ TẠO MÃ QR – PHIÊN BẢN V1.2.2
 
 **Đơn vị:** Văn phòng Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk  
 **Giao diện:** Nền sáng (trắng – xanh nhạt), xanh dương chủ đạo, tiêu đề phần mềm màu đỏ – theo mẫu thiết kế đã được duyệt.  
@@ -9,7 +9,7 @@
 - Nhập hoặc dán đường link **HTTP(S)** đến website, PDF, hình ảnh hoặc Google Drive (người quét QR vẫn cần có quyền truy cập tài liệu đích).
 - **Hình dạng:** 6 kiểu điểm QR; tùy chỉnh độ bo; 5 kiểu mắt ngoài, 6 kiểu mắt trong; 4 mức sửa lỗi; 3 mức độ đầy điểm (Thưa/Trung bình/Cao). Mức “mật độ” chỉ ảnh hưởng cách vẽ, không thay đổi dữ liệu QR.
 - **Màu sắc:** màu điểm, màu nền, bảng màu, mã HEX; **nền mặc định trong suốt**.
-- **Logo:** tải ảnh PNG, kéo thả, xem trước và bỏ ảnh; điều chỉnh tỷ lệ logo, nền, bo góc; 3 mức khoảng trống bảo vệ **Không viền – Vừa – Rộng**. Khi có logo, tự động chọn sửa lỗi H.
+- **Logo:** tải ảnh PNG, kéo thả, xem trước và bỏ ảnh; điều chỉnh tỷ lệ logo, nền, bo góc; 3 mức khoảng trống bảo vệ **Không viền – Vừa – Rộng**. Khi có logo, cho chọn mức sửa lỗi M, Q hoặc H (khuyến nghị Q/H); mức L bị khóa.
 - **Xem trước theo thời gian thực:** đặt ở cột phải trên máy tính; nằm dưới phần tùy chỉnh trên điện thoại.
 - **Xuất tệp:** PNG/SVG; kích thước 512, 1024 hoặc 2048 px; sao chép PNG vào clipboard nếu trình duyệt hỗ trợ.
 - **Tương thích:** desktop, tablet, mobile, giao diện tiếng Việt. Các tab chỉ hiển thị đúng nhóm tùy chỉnh đang chọn.
@@ -96,3 +96,8 @@ Thành phần nguồn mở của bên thứ ba: xem [`LICENSE-THIRD-PARTY.md`](L
 - Khi có logo, mức sửa lỗi L bị khóa; có thể chọn M/Q/H; mặc định H. Nếu đang chọn L rồi tải logo, tự chuyển M. Giới hạn kích thước logo: M tối đa 15%, Q tối đa 18%, H tối đa 22%.
 - Hai icon nhập URL và tùy chỉnh được vẽ lại thành nét xanh PNG trong suốt, không nền.
 - Chức năng và giao diện còn lại của V1.2 được giữ nguyên.
+
+### Thay đổi V1.2.2
+- Màu điểm QR mặc định: **đen `#000000`**; nền vẫn mặc định trong suốt. Người dùng có thể chọn các màu khác như cũ.
+- Bốn mức sửa lỗi L / M / Q / H trên **cùng một hàng** ở màn hình rộng; màn hình điện thoại cuộn ngang riêng hàng nút để không bị vỡ dòng.
+- Giữ nguyên giới hạn mức sửa lỗi từ M trở lên khi có logo và tất cả chức năng V1.2.1.

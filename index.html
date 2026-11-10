@@ -72,18 +72,16 @@
                   <div id="eye-inner-options" class="visual-choices" aria-label="Kiểu mắt bên trong"></div>
                 </div>
               </div>
-              <div class="setting-grid-two">
-                <div class="setting-group">
-                  <h3>Mức độ sửa lỗi</h3>
-                  <p class="hint">Khi có logo, được chọn từ M đến H. Nên dùng Q hoặc H để dễ quét hơn.</p>
-                  <div id="ecc-options" class="segment-wrap" aria-label="Mức sửa lỗi"></div>
-                  <p id="ecc-notice" class="hint emph" hidden>Logo dùng mức sửa lỗi M, Q hoặc H.</p>
-                </div>
-                <div class="setting-group last">
-                  <h3>Mật độ điểm chấm <span class="info-mark" title="Điều chỉnh độ đầy của mỗi điểm, không thay đổi dữ liệu QR.">ⓘ</span></h3>
-                  <p class="hint">Thưa, trung bình hoặc cao chỉ thay đổi diện mạo điểm QR.</p>
-                  <div id="density-options" class="segment-wrap triple" aria-label="Mật độ điểm chấm"></div>
-                </div>
+              <div class="setting-group ecc-setting">
+                <h3>Mức độ sửa lỗi</h3>
+                <p class="hint">Khi có logo, được chọn từ M đến H. Nên dùng Q hoặc H để dễ quét hơn.</p>
+                <div id="ecc-options" class="segment-wrap ecc-row" aria-label="Mức sửa lỗi"></div>
+                <p id="ecc-notice" class="hint emph" hidden>Logo dùng mức sửa lỗi M, Q hoặc H.</p>
+              </div>
+              <div class="setting-group last">
+                <h3>Mật độ điểm chấm <span class="info-mark" title="Điều chỉnh độ đầy của mỗi điểm, không thay đổi dữ liệu QR.">ⓘ</span></h3>
+                <p class="hint">Thưa, trung bình hoặc cao chỉ thay đổi diện mạo điểm QR.</p>
+                <div id="density-options" class="segment-wrap triple" aria-label="Mật độ điểm chấm"></div>
               </div>
             </div>
 
@@ -92,7 +90,7 @@
                 <h3>Màu điểm mã QR</h3>
                 <p class="hint">Có thể chọn màu gợi ý hoặc tự nhập màu HEX.</p>
                 <div id="foreground-palette" class="color-swatches" aria-label="Màu QR gợi ý"></div>
-                <div class="color-form"><label for="foreground-picker">Chọn màu</label><input type="color" id="foreground-picker" value="#0B3D7E" /><label for="foreground-hex">Mã HEX</label><input type="text" id="foreground-hex" value="#0B3D7E" maxlength="7" spellcheck="false" /></div>
+                <div class="color-form"><label for="foreground-picker">Chọn màu</label><input type="color" id="foreground-picker" value="#000000" /><label for="foreground-hex">Mã HEX</label><input type="text" id="foreground-hex" value="#000000" maxlength="7" spellcheck="false" /></div>
               </div>
               <div class="setting-group last">
                 <h3>Màu nền mã QR</h3>

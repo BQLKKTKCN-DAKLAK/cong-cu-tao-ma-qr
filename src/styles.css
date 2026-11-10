@@ -1,4 +1,4 @@
-/* Công cụ tạo mã QR V1.2.1 — thiết kế nền sáng đã duyệt.
+/* Công cụ tạo mã QR V1.2.2 — thiết kế nền sáng đã duyệt.
  * Toàn bộ tài nguyên giao diện lưu ngay trong thư mục dự án.
  */
 :root {
@@ -262,3 +262,39 @@ h2 { color:#073c8c;font-size:clamp(21px,1.75vw,29px);font-weight:850;line-height
 .compact-margin-row { margin-top:13px; }
 .margin-hint { padding-left:33px;color:#4c6788;font-size:12px;line-height:1.45;margin:4px 0 12px; }
 @media(max-width:590px) { .section-head .section-icon,.customize-head .section-icon {width:38px;height:38px;} .margin-hint{padding-left:0;} }
+
+/* V1.2.2: bốn mức sửa lỗi nằm trên một hàng duy nhất, không rơi dòng. */
+#ecc-options.ecc-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 760px;
+  flex-wrap: nowrap;
+}
+#ecc-options.ecc-row .segment-button {
+  min-width: 0;
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 15px;
+  padding: 9px 5px;
+}
+@media (max-width: 590px) {
+  /* Màn hình hẹp: vẫn một hàng, cuộn riêng hàng nút nếu thiếu không gian. */
+  #ecc-options.ecc-row {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 7px;
+    padding: 2px 1px 7px;
+    scrollbar-width: thin;
+  }
+  #ecc-options.ecc-row .segment-button {
+    flex: 1 0 auto;
+    width: auto;
+    min-width: max-content;
+    font-size: 14px;
+    padding: 9px 10px;
+  }
+}
