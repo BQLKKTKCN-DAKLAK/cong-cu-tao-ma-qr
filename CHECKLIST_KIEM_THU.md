@@ -7,8 +7,10 @@
 - [ ] Tab Hình dạng: đổi điểm vuông/tròn/bo góc/thoi/cánh mềm/ô dài, mắt ngoài/trong.
 - [ ] Mức sửa lỗi L/M/Q/H thay đổi được (nếu không có logo).
 - [ ] Mật độ Thưa/Trung bình/Cao đổi được mà QR vẫn quét được với URL thử.
-- [ ] Tab Màu sắc: đổi màu điểm, màu nền, chọn nền trong suốt.
-- [ ] Tab Logo: tải PNG, hiển thị tên/ảnh thu nhỏ, chỉnh kích thước, nền, bo góc, viền; xóa logo.
+- [ ] Tab Màu sắc: **mặc định tích Nền trong suốt**; khi xuất PNG và mở trong phần mềm đồ họa phải có kênh alpha.
+- [ ] Với nền trong suốt, đặt QR lên nền trắng/sáng và thử quét thành công.
+- [ ] Tab Logo: tải PNG, hiển thị tên/ảnh thu nhỏ, chỉnh kích thước, nền, bo góc, vùng bảo vệ; xóa logo.
+- [ ] Ba mức Viền logo: **Không viền / Vừa / Rộng** làm thay đổi rõ khoảng cách điểm QR tới mép logo và vẫn quét thành công với logo thực tế.
 - [ ] Có logo: sửa lỗi tự chuyển H; xem trước cập nhật.
 - [ ] Chuyển tab: chỉ hiển thị đúng nội dung một tab tại một thời điểm.
 - [ ] Tải PNG kích thước 200/1000/2000 px; mã quét được.
@@ -17,3 +19,5 @@
 - [ ] Mở giao diện trên điện thoại: không tràn ngang, các tab/nút đủ rộng.
 - [ ] Dùng QR liên kết tới PDF/ảnh trên Google Drive: người quét có quyền mở tệp.
 - [ ] Kiểm tra khi làm mới trang: nội dung URL/logo không được lưu lại.
+- [ ] Kiểm tra năm PNG trong `assets/icons/` hiển thị trên Cloudflare, không có ô vuông thay thế.
+- [ ] Chân trang hiển thị đúng dòng bản quyền Văn phòng Ban.

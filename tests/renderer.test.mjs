@@ -39,3 +39,19 @@ test('mock QR factory matrix conversion',()=>{
  const got=qrMatrixFromFactory((_,level)=>{ec=level;return {addData(){},make(){},getModuleCount(){return 21;},isDark(){return true;}}},'https://example.com','H');
  assert.equal(ec,'H');assert.equal(got.length,21);assert.ok(got[5][5]);
 });
+
+test('default QR background is transparent (PNG/SVG alpha)',()=>{
+ const svg=buildQrSvg(matrix,{fg:'#000000'});
+ assert.ok(!svg.includes('fill="#FFFFFF"'), 'Không được tự động vẽ nền trắng toàn mã QR');
+});
+
+test('logo gap options reserve three increasingly wide clear zones',()=>{
+ const n=29;
+ const testMatrix=Array.from({length:n},(_,r)=>Array.from({length:n},(_,c)=>(r*7+c*3)%5<3));
+ const png='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+xHqkAAAAASUVORK5CYII=';
+ const counts=['none','thin','medium'].map(logoBorder=>{
+  const svg=buildQrSvg(testMatrix,{logoData:png,logoSize:15,dotType:'dots',logoBorder});
+  return (svg.match(/<ellipse /g)||[]).length;
+ });
+ assert.ok(counts[0]>counts[1]&&counts[1]>counts[2],`Các mức viền phải khác nhau: ${counts}`);
+});

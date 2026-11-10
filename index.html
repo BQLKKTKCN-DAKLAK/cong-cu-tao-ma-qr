@@ -9,12 +9,13 @@
   <title>Công cụ tạo mã QR | Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
   <link rel="stylesheet" href="./src/styles.css" />
+  <link rel="stylesheet" href="./src/updates-v1.1.css" />
 </head>
 <body>
   <div class="page-shell">
     <header class="top-header">
       <p class="agency">BAN QUẢN LÝ CÁC KHU KINH TẾ<br />VÀ CÁC KHU CÔNG NGHIỆP ĐẮK LẮK</p>
-      <div class="ornament" aria-hidden="true"><span></span><b>❦</b><span></span></div>
+      <div class="agency-rule" aria-hidden="true"></div>
       <h1>CÔNG CỤ TẠO MÃ QR</h1>
       <div class="gold-line" aria-hidden="true"></div>
     </header>
@@ -22,18 +23,18 @@
     <main class="workspace">
       <div class="left-panel">
         <section class="url-area" aria-labelledby="url-title">
-          <h2 id="url-title"><span class="title-icon" aria-hidden="true">↗</span> Nhập hoặc dán URL</h2>
-          <div class="url-field"><span aria-hidden="true">◎</span><input id="url-input" type="url" inputmode="url" autocomplete="url" placeholder="Dán URL tại đây (https://...)" aria-describedby="url-helper url-error" spellcheck="false"/><button id="clear-url" class="clear-input" type="button" title="Xóa URL" aria-label="Xóa URL">×</button></div>
+          <h2 id="url-title"><img class="section-icon" src="./assets/icons/url.png" alt="" aria-hidden="true" /> Nhập hoặc dán URL</h2>
+          <div class="url-field"><span class="url-field-icon" aria-hidden="true"><img src="./assets/icons/url.png" alt="" /></span><input id="url-input" type="url" inputmode="url" autocomplete="url" placeholder="Dán URL tại đây (https://...)" aria-describedby="url-helper url-error" spellcheck="false"/><button id="clear-url" class="clear-input" type="button" title="Xóa URL" aria-label="Xóa URL">×</button></div>
           <p id="url-helper" class="helper">Hỗ trợ đường link website, PDF, hình ảnh hoặc liên kết Google Drive đã được chia sẻ.</p>
           <p id="url-error" class="validation-error" role="alert" hidden></p>
         </section>
 
         <section class="customize" aria-labelledby="customize-title">
-          <h2 id="customize-title"><span class="title-icon" aria-hidden="true">⚙</span> Tùy chỉnh mã QR</h2>
+          <h2 id="customize-title"><img class="section-icon" src="./assets/icons/customize.png" alt="" aria-hidden="true" /> Tùy chỉnh mã QR</h2>
           <div class="tabs" role="tablist" aria-label="Tùy chỉnh mã QR">
-            <button type="button" class="tab is-active" role="tab" id="tab-shape" aria-selected="true" aria-controls="panel-shape" data-tab="shape"><span aria-hidden="true">▦</span> Hình dạng</button>
-            <button type="button" class="tab" role="tab" id="tab-color" aria-selected="false" aria-controls="panel-color" data-tab="color" tabindex="-1"><span aria-hidden="true">◉</span> Màu sắc</button>
-            <button type="button" class="tab" role="tab" id="tab-logo" aria-selected="false" aria-controls="panel-logo" data-tab="logo" tabindex="-1"><span aria-hidden="true">▧</span> Logo</button>
+            <button type="button" class="tab is-active" role="tab" id="tab-shape" aria-selected="true" aria-controls="panel-shape" data-tab="shape"><img class="tab-icon" src="./assets/icons/shape.png" alt="" aria-hidden="true" /> Hình dạng</button>
+            <button type="button" class="tab" role="tab" id="tab-color" aria-selected="false" aria-controls="panel-color" data-tab="color" tabindex="-1"><img class="tab-icon" src="./assets/icons/color.png" alt="" aria-hidden="true" /> Màu sắc</button>
+            <button type="button" class="tab" role="tab" id="tab-logo" aria-selected="false" aria-controls="panel-logo" data-tab="logo" tabindex="-1"><img class="tab-icon" src="./assets/icons/logo.png" alt="" aria-hidden="true" /> Logo</button>
           </div>
 
           <div class="tab-panel" id="panel-shape" role="tabpanel" aria-labelledby="tab-shape">
@@ -77,9 +78,9 @@
               <h3>Màu nền QR</h3>
               <div id="background-palette" class="color-swatches" aria-label="Màu nền gợi ý"></div>
               <div class="color-form"><label for="background-picker">Chọn màu</label><input type="color" id="background-picker" value="#FFFFFF" /><label for="background-hex">Mã HEX</label><input type="text" id="background-hex" value="#FFFFFF" maxlength="7" spellcheck="false" /></div>
-              <label class="toggle-row"><input id="background-transparent" type="checkbox" /> Nền trong suốt (PNG/SVG)</label>
+              <label class="toggle-row"><input id="background-transparent" type="checkbox" checked /> Nền trong suốt (PNG/SVG)</label>
             </div>
-            <div class="notice"><span aria-hidden="true">ⓘ</span><p>Nên chọn màu điểm QR đậm và nền sáng, tương phản cao để máy ảnh dễ nhận diện.</p></div>
+            <div class="notice"><span aria-hidden="true">ⓘ</span><p>Nền QR mặc định trong suốt. Khi chèn vào Word, PowerPoint hoặc in, nên đặt trên nền sáng và chọn màu QR có độ tương phản cao.</p></div>
           </div>
 
           <div class="tab-panel" id="panel-logo" role="tabpanel" aria-labelledby="tab-logo" hidden>
@@ -108,7 +109,8 @@
               <input id="logo-radius" type="range" min="0" max="24" value="8" step="1" />
             </div>
             <div class="setting-group last">
-              <h3>Viền logo</h3>
+              <h3>Viền logo – khoảng cách với điểm QR</h3>
+              <p class="hint">Đây là khoảng trống bảo vệ từ mép logo đến các điểm chấm QR (không phải nét viền kẻ quanh ảnh).</p>
               <div id="logo-border-options" class="segment-wrap triple"></div>
             </div>
             <div class="notice"><span aria-hidden="true">ⓘ</span><p>Giữ logo vừa phải và kiểm tra bằng điện thoại trước khi in hoặc phát hành QR.</p></div>
@@ -135,7 +137,7 @@
         <p class="preview-note">QR dẫn đến đường link anh cung cấp. Tệp PDF hoặc hình ảnh không được tải lên ứng dụng.</p>
       </aside>
     </main>
-    <footer class="footer">Công cụ tạo mã QR • V1.0 • Xử lý trên trình duyệt • Không yêu cầu đăng nhập</footer>
+    <footer class="footer">Công cụ tạo mã QR • Bản quyền thuộc Văn phòng Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk</footer>
   </div>
   <script type="module" src="./src/app.js"></script>
 </body>

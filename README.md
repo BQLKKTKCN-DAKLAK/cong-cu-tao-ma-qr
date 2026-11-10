@@ -1,4 +1,4 @@
-# CÔNG CỤ TẠO MÃ QR — V1.0
+# CÔNG CỤ TẠO MÃ QR — V1.1
 
 **Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk**
 
@@ -6,13 +6,25 @@ Công cụ web tĩnh tạo mã QR từ **đường link URL** (website, liên k�
 
 ![Giao diện Logo đã duyệt](docs/giao-dien-logo-da-duyet.png)
 
+## Thay đổi trong bản V1.1 (10/11/2026)
+
+- Sửa hiển thị dấu tiếng Việt ở tên cơ quan: dùng font Segoe UI/Arial, tăng giãn dòng.
+- Bỏ họa tiết ở đường kẻ dưới tên cơ quan; giữ một đường kẻ ngang đơn giản.
+- Đưa 5 icon PNG thiết kế riêng vào `assets/icons/`, dùng trực tiếp từ mã nguồn.
+- Tăng cỡ chữ trong bảng tùy chỉnh và các nút chọn.
+- QR mặc định **nền trong suốt**, phù hợp chèn lên tài liệu nền sáng.
+- **Viền logo** nay là khoảng cách giữa mép logo và điểm QR (Không viền / Vừa / Rộng), không phải nét stroke vẽ lên logo.
+- Đổi đúng dòng bản quyền theo yêu cầu của Văn phòng Ban.
+
+**Đã kiểm thử:** Các bản PNG có và không có logo (bao gồm 3 mức vùng bảo vệ logo) giải mã thành công sau khi đặt trên nền trắng. QR nền trong suốt phải được trình bày trên nền đủ sáng và tương phản. Lưu ý khả năng quét còn tùy kích thước logo, đường link, màu điểm và máy quét; luôn kiểm tra bằng thiết bị thật trước khi in.
+
 ## 1. Chức năng đã triển khai
 
 - Dán URL hợp lệ dạng `https://...` hoặc `http://...`, cập nhật mã QR sau khi chỉnh.
 - **Ba tab độc lập**: `Hình dạng`, `Màu sắc`, `Logo`; chỉ hiển thị nội dung của tab được chọn.
 - **Hình dạng**: sáu kiểu điểm dữ liệu; năm kiểu mắt ngoài, sáu kiểu mắt trong; điều chỉnh bo góc; bốn mức sửa lỗi L/M/Q/H; ba mức **độ đầy điểm chấm** Thưa/Trung bình/Cao.
-- **Màu sắc**: chọn màu điểm QR, màu nền, mã màu HEX hoặc nền trong suốt.
-- **Logo**: chọn/kéo thả ảnh PNG (tối đa 2 MB, tối đa 4096 × 4096 px), xem tên, xóa, chỉnh kích thước 5–22%, nền logo (trong suốt/trắng/trắng bo góc), bo góc và độ dày viền. Khi có logo, sử dụng sửa lỗi H.
+- **Màu sắc**: chọn màu điểm QR, màu nền, mã màu HEX; **mặc định nền trong suốt** khi xuất PNG/SVG.
+- **Logo**: chọn/kéo thả ảnh PNG (tối đa 2 MB, tối đa 4096 × 4096 px), xem tên, xóa, chỉnh kích thước 5–22%, nền logo (trong suốt/trắng/trắng bo góc), bo góc và **vùng trống bảo vệ quanh logo** (Không viền / Vừa / Rộng). Khi có logo, sử dụng sửa lỗi H.
 - Xem trước mã QR theo thời gian thực, chọn kích thước xuất **200–2000 px**, tải PNG hoặc SVG, sao chép PNG vào bộ nhớ tạm nếu trình duyệt cho phép.
 - Giao diện desktop và điện thoại. Không đăng nhập, không có cơ sở dữ liệu và không lưu lịch sử URL/logo.
 
@@ -24,10 +36,12 @@ Công cụ web tĩnh tạo mã QR từ **đường link URL** (website, liên k�
 cong-cu-tao-ma-qr/
 ├── index.html                    Trang ứng dụng
 ├── src/
-│   ├── styles.css                Giao diện, responsive
+│   ├── styles.css                Giao diện gốc, responsive
+│   ├── updates-v1.1.css          Bổ sung kiểu chữ và kích thước
 │   ├── app.js                     Chức năng tab, URL, logo, xuất file
 │   └── qr-renderer.js             Vẽ SVG từ ma trận QR
 ├── assets/favicon.svg            Biểu tượng trang
+├── assets/icons/*.png            5 biểu tượng PNG mới cho giao diện
 ├── vendor/                       Đặt thư viện QR để tự lưu trữ (không bắt buộc)
 ├── scripts/build.mjs             Tạo thư mục dist/ để triển khai
 ├── tests/
@@ -38,7 +52,8 @@ cong-cu-tao-ma-qr/
 ├── robots.txt                    Khuyến nghị công cụ tìm kiếm không lập chỉ mục
 ├── package.json                  Scripts build/test (không có package phụ thuộc)
 ├── LICENSE-THIRD-PARTY.md        Thành phần mã nguồn mở
-└── HUONG_DAN_TRIEN_KHAI.md       Triển khai GitHub + Cloudflare Pages
+├── HUONG_DAN_TRIEN_KHAI.md       Triển khai GitHub + Cloudflare Pages
+└── HUONG_DAN_CAP_NHAT_V1.1.md    Cập nhật từ bản V1.0
 ```
 
 ## 3. Thư viện QR
@@ -108,9 +123,9 @@ Mỗi lần đẩy thay đổi vào nhánh `main`, Cloudflare Pages sẽ xây d�
 
 ## 7. Kiểm thử đã thực hiện khi bàn giao
 
-- `npm test`: 12 ca kiểm thử JavaScript thành công.
+- `npm test`: 14 ca kiểm thử JavaScript thành công.
 - `npm run check`: tệp JavaScript không có lỗi cú pháp.
 - `npm run build`: tạo `dist/index.html` thành công.
-- Thử nghiệm Chromium với **ma trận QR được tạo từ thư viện Python**: tải PNG không logo và có logo, cả hai được OpenCV giải mã đúng URL thử nghiệm; xuất SVG chứa logo PNG cũng thành công; chuyển tab chỉ hiện đúng nhóm chức năng.
+- Thử nghiệm Chromium với **ma trận QR được tạo từ thư viện Python**: tải PNG không logo và có logo ở cả 3 mức vùng bảo vệ, tất cả được OpenCV giải mã đúng URL thử nghiệm sau khi ghép lên nền trắng; xuất SVG chứa logo PNG cũng thành công; chuyển tab chỉ hiện đúng nhóm chức năng.
 
 **Chưa xác minh trực tiếp** tốc độ hoặc khả năng tải thư viện QR qua CDN từ môi trường Cloudflare Pages thực tế, vì môi trường xây dựng hiện tại hạn chế truy cập mạng ngoài. Cần kiểm tra lại URL đầu tiên trên website đã triển khai theo checklist kèm theo.

@@ -6,7 +6,7 @@ import {
 const $=id=>document.getElementById(id);
 const state={
   url:'',dotType:'square',eyeOuter:'square',eyeInner:'square',roundness:0,ecc:'H',density:'high',
-  fg:'#000000',bg:'#FFFFFF',transparent:false,logoData:'',logoSize:15,
+  fg:'#000000',bg:'#FFFFFF',transparent:true,logoData:'',logoSize:15,
   logoBackground:'transparent',logoRadius:8,logoBorder:'none',outputSize:1000,
 };
 let libraryReady=false,svgMarkup='',timer=null,renderSerial=0;
@@ -149,7 +149,7 @@ function makeOptions(){
   makeChoice('ecc-options',[{value:'L',label:'Thấp (L)'},{value:'M',label:'Trung bình (M)'},{value:'Q',label:'Cao (Q)'},{value:'H',label:'Rất cao (H)'}],'ecc');
   makeChoice('density-options',DENSITIES,'density');
   makeChoice('logo-background-options',[{value:'transparent',label:'Trong suốt'},{value:'white',label:'Nền trắng'},{value:'rounded-white',label:'Bo góc nền'}],'logoBackground');
-  makeChoice('logo-border-options',[{value:'none',label:'Không viền'},{value:'thin',label:'Mỏng'},{value:'medium',label:'Vừa'}],'logoBorder');
+  makeChoice('logo-border-options',[{value:'none',label:'Không viền'},{value:'thin',label:'Vừa'},{value:'medium',label:'Rộng'}],'logoBorder');
   makePalette('foreground-palette','fg',['#000000','#F4511E','#008FA6','#35A553','#8158BD','#EC5555','#FFB200','#079D9F']);
   makePalette('background-palette','bg',['#FFFFFF','#F0F0F0','#FFF3D5','#DCEBFF','#DCE2FF','#FCE1E6','#D6FBE1','#E7F4E9'],true);
 }

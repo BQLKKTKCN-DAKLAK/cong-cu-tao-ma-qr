@@ -27,7 +27,14 @@ try:
   html=(ROOT/'index.html').read_text()
   css=(ROOT/'src/styles.css').read_text()
   html=html.replace('<link rel="stylesheet" href="./src/styles.css" />', '<style>'+css+'</style>')
+  update_css=(ROOT/'src/updates-v1.1.css').read_text()
+  html=html.replace('<link rel="stylesheet" href="./src/updates-v1.1.css" />','<style>'+update_css+'</style>')
   html=html.replace('<script type="module" src="./src/app.js"></script>','')
+  # set_content không có base URL; nhúng PNG vào tài liệu thử để ảnh hiện đúng.
+  for icon_name in ['url','customize','shape','color','logo']:
+   icon_bytes=(ROOT/'assets/icons'/f'{icon_name}.png').read_bytes()
+   uri='data:image/png;base64,'+base64.b64encode(icon_bytes).decode()
+   html=html.replace(f'./assets/icons/{icon_name}.png',uri)
   page.set_content(html,wait_until='domcontentloaded')
   page.evaluate('matrix => {window.qrcode=()=>({addData(){},make(){},getModuleCount(){return matrix.length},isDark(r,c){return matrix[r][c]}})}',matrix)
   renderer=(ROOT/'src/qr-renderer.js').read_text().replace('export const','const').replace('export function','function')
@@ -35,6 +42,8 @@ try:
   app=re.sub(r"import\s*\{.*?\}\s*from\s*'./qr-renderer.js';",'',app,flags=re.S)
   page.add_script_tag(content=renderer+'\n'+app)
   page.wait_for_timeout(800)
+  assert page.locator('.section-icon').count()==2
+  assert page.evaluate('Array.from(document.querySelectorAll("img.section-icon,img.tab-icon")).every(i=>i.complete && i.naturalWidth>0)')
   assert page.locator('#download-btn').is_disabled()
   assert page.locator('#panel-logo').is_hidden()
   page.locator('#url-input').fill(URL)
@@ -44,7 +53,11 @@ try:
   assert page.locator('#qr-preview svg').count()==1
   with page.expect_download() as dl:page.locator('#download-btn').click()
   dest=ROOT/'tests'/'smoke-output.png';dl.value.save_as(dest)
-  img=cv2.imread(str(dest));data,points,_=cv2.QRCodeDetector().detectAndDecode(img)
+  rgba=Image.open(dest).convert('RGBA')
+  assert rgba.getpixel((0,0))[3]==0, 'QR mặc định phải có nền trong suốt'
+  white=Image.new('RGBA',rgba.size,'white');white.alpha_composite(rgba)
+  img=cv2.cvtColor(np.array(white.convert('RGB')),cv2.COLOR_RGB2BGR)
+  data,points,_=cv2.QRCodeDetector().detectAndDecode(img)
   print('Default PNG decoded:', data)
   assert data==URL
   page.get_by_role('tab',name='Logo').click()
@@ -61,9 +74,28 @@ try:
   page.screenshot(path=str(ROOT/'docs'/'giao-dien-logo-thuc-te.png'),full_page=True)
   with page.expect_download() as dl:page.locator('#download-btn').click()
   dest_logo=ROOT/'tests'/'smoke-logo.png';dl.value.save_as(dest_logo)
-  img=cv2.imread(str(dest_logo));data,points,_=cv2.QRCodeDetector().detectAndDecode(img)
+  rgba=Image.open(dest_logo).convert('RGBA')
+  white=Image.new('RGBA',rgba.size,'white');white.alpha_composite(rgba)
+  img=cv2.cvtColor(np.array(white.convert('RGB')),cv2.COLOR_RGB2BGR)
+  data,points,_=cv2.QRCodeDetector().detectAndDecode(img)
   print('With logo PNG decoded:', data)
   assert data==URL
+  # Kiểm tra cả 3 mức vùng bảo vệ logo: kết quả phải khác biệt và QR còn quét được.
+  gap_counts=[]
+  for gap in ['none','thin','medium']:
+   page.locator(f'#logo-border-options button[data-value="{gap}"]').click()
+   page.wait_for_timeout(250)
+   count=page.locator('#qr-preview svg > g > ellipse, #qr-preview svg > g > rect, #qr-preview svg > g > path').count()
+   gap_counts.append(count)
+   with page.expect_download() as dl:page.locator('#download-btn').click()
+   dest_gap=ROOT/'tests'/f'smoke-gap-{gap}.png';dl.value.save_as(dest_gap)
+   rgba=Image.open(dest_gap).convert('RGBA')
+   white=Image.new('RGBA',rgba.size,'white');white.alpha_composite(rgba)
+   rgb=cv2.cvtColor(np.array(white.convert('RGB')),cv2.COLOR_RGB2BGR)
+   got,_,_=cv2.QRCodeDetector().detectAndDecode(rgb)
+   print('Logo gap:',gap,'visible modules:',count,'decoded:',got)
+   assert got==URL,f'QR không quét được ở mức viền {gap}'
+  assert gap_counts[0]>gap_counts[1]>gap_counts[2],gap_counts
   page.locator('#export-format').select_option('svg')
   with page.expect_download() as dl:page.locator('#download-btn').click()
   dest_svg=ROOT/'tests'/'smoke-logo.svg';dl.value.save_as(dest_svg)

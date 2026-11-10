@@ -93,7 +93,7 @@ export function buildQrSvg(matrix, options = {}) {
   }
   const n = matrix.length;
   const cfg = {
-    fg:'#000000', bg:'#FFFFFF', transparent:false, dotType:'square', eyeOuter:'square', eyeInner:'square',
+    fg:'#000000', bg:'#FFFFFF', transparent:true, dotType:'square', eyeOuter:'square', eyeInner:'square',
     density:'high', roundness:0, outputSize:1000, logoData:'', logoSize:15, logoBackground:'transparent',
     logoRadius:8, logoBorder:'none', ...options,
   };
@@ -111,14 +111,19 @@ export function buildQrSvg(matrix, options = {}) {
   const logoActive = typeof cfg.logoData==='string' && /^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(cfg.logoData);
   const logoWidth=logoActive ? n * Math.min(22,Math.max(5,Number(cfg.logoSize)||15))/100 : 0;
   const logoCenter=quiet+n/2;
-  const logoExtra=logoActive ? Math.max(.35,logoWidth*.045) : 0;
-  const shieldLeft=logoCenter-(logoWidth/2+logoExtra), shieldRight=logoCenter+(logoWidth/2+logoExtra);
+  // Viền bảo vệ: khoảng trống thực giữa hình logo và mô-đun QR.
+  // Đơn vị là một mô-đun QR; không dùng nét stroke để giả lập viền.
+  const gapByBorder={none:0,thin:0.60,medium:1.60};
+  const logoGap=logoActive ? (gapByBorder[cfg.logoBorder] ?? 0) : 0;
+  const shieldLeft=logoCenter-logoWidth/2-logoGap, shieldRight=logoCenter+logoWidth/2+logoGap;
   const isEye=(r,c)=>(r<7&&c<7)||(r<7&&c>=n-7)||(r>=n-7&&c<7);
   let elems=[];
   for(let r=0;r<n;r++) for(let c=0;c<n;c++) {
     if(!matrix[r][c]||isEye(r,c)) continue;
     const cx=quiet+c+.5,cy=quiet+r+.5;
-    if(logoActive && cx>=shieldLeft && cx<=shieldRight && cy>=shieldLeft && cy<=shieldRight) continue;
+    // Chặn tất cả chấm giao với vùng bảo vệ, không chỉ tâm chấm.
+    const half=ratio/2;
+    if(logoActive && cx+half>shieldLeft && cx-half<shieldRight && cy+half>shieldLeft && cy-half<shieldRight) continue;
     elems.push(moduleSvg(cfg.dotType,cx,cy,ratio,cfg.fg,Number(cfg.roundness)||0));
   }
   out.push(`<g>${elems.join('')}</g>`);
@@ -135,12 +140,9 @@ export function buildQrSvg(matrix, options = {}) {
     const bgRounded=cfg.logoBackground==='rounded-white';
     const bgRadius=bgRounded ? Math.max(logoWidth*.13,clipRadius) : clipRadius;
     out.push(`<defs><clipPath id="qr-logo-clip">${rect(x,y,logoWidth,logoWidth,clipRadius,'#FFFFFF')}</clipPath></defs>`);
-    if(cfg.logoBackground!=='transparent')out.push(rect(x-logoExtra/2,y-logoExtra/2,logoWidth+logoExtra,logoWidth+logoExtra,bgRadius,cfg.bg));
+    // Nền logo được chọn 'Nền trắng' luôn là trắng, độc lập màu nền mã QR.
+    if(cfg.logoBackground!=='transparent')out.push(rect(x,y,logoWidth,logoWidth,bgRadius,'#FFFFFF'));
     out.push(`<image x="${decimal(x)}" y="${decimal(y)}" width="${decimal(logoWidth)}" height="${decimal(logoWidth)}" preserveAspectRatio="xMidYMid meet" clip-path="url(#qr-logo-clip)" href="${cfg.logoData}"/>`);
-    if(cfg.logoBorder!=='none'){
-      const stroke=cfg.logoBorder==='medium'?.22:.11;
-      out.push(`<rect x="${decimal(x)}" y="${decimal(y)}" width="${decimal(logoWidth)}" height="${decimal(logoWidth)}" rx="${decimal(clipRadius)}" fill="none" stroke="${cfg.bg}" stroke-width="${stroke}"/>`);
-    }
   }
   out.push('</svg>');
   return out.join('');

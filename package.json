@@ -1,7 +1,7 @@
 {
   "name": "cong-cu-tao-ma-qr",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Công cụ tạo mã QR cho đường link, chạy hoàn toàn trên trình duyệt.",
   "type": "module",
   "scripts": {

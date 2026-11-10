@@ -1,0 +1,53 @@
+/* Cập nhật V1.1: hiển thị tiếng Việt, biểu tượng PNG và khả năng đọc. */
+.agency {
+  font-family: "Segoe UI", Arial, "Noto Sans", sans-serif;
+  font-size:clamp(17px,2vw,24px);
+  font-weight:800;
+  line-height:1.64;
+  letter-spacing:0;
+  padding:3px 0 5px;
+  margin:1px 0 8px;
+  overflow:visible;
+  text-rendering:optimizeLegibility;
+}
+.agency-rule {
+  width:min(290px,60%);
+  height:2px;
+  margin:7px auto 14px;
+  border-radius:2px;
+  background:linear-gradient(90deg,transparent 0%,#caeaff 16%,#fff 50%,#caeaff 84%,transparent 100%);
+}
+.section-icon {width:33px;height:33px;object-fit:contain;flex:none;filter:drop-shadow(0 2px 3px rgba(10,135,247,.18));}
+.tab-icon {width:26px;height:26px;object-fit:contain;flex:none;vertical-align:middle;margin-right:5px;}
+h2 {font-size:clamp(21px,2vw,24px);gap:12px;}
+.tab {display:flex;align-items:center;justify-content:center;gap:6px;font-size:18px;line-height:1.35;padding:15px 10px;}
+.tab-panel {font-size:16px;}
+.setting-group h3 {font-size:18px;line-height:1.45;}
+.setting-heading output {font-size:16px;}
+.hint {font-size:14px;line-height:1.55;}
+.segment-button {font-size:15px;min-height:42px;padding:10px 14px;}
+.range-ends {font-size:13px;}
+.color-form label {font-size:15px;}
+.color-form input[type="text"] {font-size:15px;}
+.toggle-row {font-size:15px;}
+.notice p {font-size:14px;}
+.logo-dropzone strong {font-size:16px;}
+.logo-file strong,.logo-file span {font-size:14px;}
+.outline-button {font-size:15px;}
+.helper,.validation-error {font-size:14px;}
+.footer {font-size:14px;line-height:1.55;color:#c7d9f3;}
+.url-field-icon {display:inline-flex;align-items:center;margin-left:15px;margin-right:0;flex:none;}
+.url-field-icon img {width:30px;height:30px;object-fit:contain;}
+/* Các chấm nằm trên vùng nền trong suốt: vẫn hiển thị trên thẻ preview sáng. */
+@media (max-width:980px){.tab {font-size:16px;padding:13px 5px}.tab-icon {width:23px;height:23px;margin-right:1px}}
+@media (max-width:720px){
+  .agency {font-size:clamp(14px,3.2vw,20px);line-height:1.65;}
+  .tab{font-size:14px;gap:3px;padding:13px 2px}
+  .tab-icon {width:22px;height:22px;margin-right:0}
+  .tab-panel {padding:20px 16px}
+  .setting-group h3 {font-size:17px}
+  .segment-button {font-size:14px;padding:9px 10px}
+  .color-form label {font-size:14px}
+  .footer {font-size:13px}
+}
+@media (max-width:380px){.tab{font-size:13px}.tab-icon{width:20px;height:20px}}
