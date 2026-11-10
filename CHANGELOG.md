@@ -28,3 +28,9 @@
 ## V1.0
 
 - Các chức năng nền tảng: dán URL, 3 tab, QR thời gian thực, logo PNG, định dạng PNG/SVG và sao chép.
+
+## V1.3.0 — Giao diện nền sáng / tối
+- Thêm bộ chuyển hai chế độ hiển thị với trạng thái aria-pressed, lưu sở thích giao diện trên thiết bị.
+- Nền sáng trắng nguyên bản, không họa tiết và không dải sóng trang trí.
+- Nền tối xanh công nghệ, tên cơ quan trắng, tên phần mềm vàng ánh kim, các khối điều khiển xanh sâu và điểm nhấn xanh điện; tab chi tiết và QR preview tiếp tục có nền sáng để dễ nhìn.
+- Không thay đổi QR SVG, màu điểm QR mặc định đen, nền PNG/SVG trong suốt, logo, mật độ, sửa lỗi và xuất tệp.

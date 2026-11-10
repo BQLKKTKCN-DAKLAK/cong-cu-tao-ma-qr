@@ -1,4 +1,4 @@
-/* Công cụ tạo mã QR V1.2.2 — thiết kế nền sáng đã duyệt.
+/* Công cụ tạo mã QR V1.3.0 — hai giao diện sáng / tối.
  * Toàn bộ tài nguyên giao diện lưu ngay trong thư mục dự án.
  */
 :root {
@@ -297,4 +297,110 @@ h2 { color:#073c8c;font-size:clamp(21px,1.75vw,29px);font-weight:850;line-height
     font-size: 14px;
     padding: 9px 10px;
   }
+}
+
+
+/* ========================================================================
+   V1.3.0 — THIẾT KẾ HAI CHẾ ĐỘ (tách biệt với màu QR xuất file)
+   ======================================================================== */
+/* Chế độ sáng: nền trắng tuyệt đối, không hoa văn hoặc dải sáng trang trí. */
+html[data-theme="light"] { color-scheme: light; background: #FFFFFF; }
+html[data-theme="light"] body { background: #FFFFFF; }
+html[data-theme="light"] .site-shell::before,
+html[data-theme="light"] .site-shell::after { display: none; }
+
+/* Nút chuyển giao diện — thao tác độc lập với các tab QR. */
+.theme-toolbar { display:flex;align-items:center;justify-content:flex-end;gap:10px;min-height:47px;padding-top:5px;padding-right:1px; }
+.theme-toolbar-label { font-size:13px;font-weight:700;letter-spacing:.12px;color:#516a8d; }
+.theme-switch { display:inline-flex;align-items:center;gap:3px;padding:4px;border:1px solid #c9dbf1;border-radius:999px;background:#f1f6ff;box-shadow:0 1px 4px rgba(24,80,151,.09); }
+.theme-button { appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:33px;padding:7px 14px;border:1px solid transparent;border-radius:999px;background:transparent;color:#42618d;font-size:14px;font-weight:750;line-height:1.1;white-space:nowrap;transition:background-color .18s,color .18s,box-shadow .18s; }
+.theme-button svg { flex-shrink:0; }
+.theme-button.is-active { background:#0a64cc;color:#FFFFFF;box-shadow:0 2px 8px #054b9b2b; }
+.theme-button:not(.is-active):hover { background:#dbeaff;color:#06499e; }
+.theme-button:focus-visible { outline:3px solid #e8a02c;outline-offset:2px; }
+
+/* Chế độ tối: xanh công nghệ, viền phát sáng; nội dung form và QR vẫn dễ đọc. */
+html[data-theme="dark"] { color-scheme: light; background:#041126; }
+html[data-theme="dark"] body {
+  color:#f3f8ff;
+  background:
+    radial-gradient(ellipse 560px 380px at 3% 4%, rgba(0,115,248,.29),transparent 75%),
+    radial-gradient(ellipse 640px 410px at 100% 1%, rgba(0,104,222,.28),transparent 73%),
+    radial-gradient(ellipse 680px 500px at 49% 98%, rgba(0,86,219,.19),transparent 79%),
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(53,143,247,.033) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(53,143,247,.033) 40px),
+    linear-gradient(140deg,#020916 0%,#071a39 51%,#020b1e 100%);
+  background-attachment:fixed;
+}
+html[data-theme="dark"] .site-shell::before,
+html[data-theme="dark"] .site-shell::after {
+  display:block;opacity:.78;filter:drop-shadow(0 0 13px rgba(12,130,247,.44));
+  pointer-events:none;z-index:-1;
+}
+html[data-theme="dark"] .site-shell::before {
+  left:-42px;top:15px;width:min(34vw,500px);height:140px;
+  transform:rotate(-11deg);border-radius:0 0 100% 0;
+  background:linear-gradient(151deg,rgba(0,112,255,.36),rgba(0,168,255,.1) 45%,transparent 48%);
+  box-shadow:inset 0 3px 0 rgba(62,184,255,.42),0 8px 28px rgba(0,94,237,.19);
+}
+html[data-theme="dark"] .site-shell::after {
+  right:-45px;top:20px;width:min(34vw,500px);height:140px;
+  transform:rotate(11deg);border-radius:0 0 0 100%;
+  background:linear-gradient(210deg,rgba(0,124,255,.34),rgba(0,168,255,.09) 46%,transparent 49%);
+  box-shadow:inset 0 3px 0 rgba(56,189,255,.38),0 8px 28px rgba(0,94,237,.19);
+}
+html[data-theme="dark"] .agency-name { color:#ffffff; text-shadow:0 1px 13px rgba(90,172,255,.33); }
+html[data-theme="dark"] .agency-rule { background:linear-gradient(90deg,transparent,#40c4ff 15%,#e6f5ff 50%,#40c4ff 85%,transparent);box-shadow:0 1px 10px #16b7ff79; }
+html[data-theme="dark"] .tool-brand h1 {
+  color:#f4c65c;
+  background:linear-gradient(180deg,#fff6c8 0%,#fce49a 22%,#bf8220 43%,#fff3bd 56%,#ecc05b 80%,#d8952e 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:none;
+  filter:drop-shadow(0 3px 7px rgba(210,142,36,.22));
+}
+html[data-theme="dark"] .brand-qr { filter:brightness(0) saturate(100%) invert(71%) sepia(70%) saturate(1324%) hue-rotate(160deg) brightness(110%); }
+html[data-theme="dark"] .theme-toolbar-label { color:#d5e7ff; }
+html[data-theme="dark"] .theme-switch { background:rgba(8,31,65,.91);border-color:#328bd1;box-shadow:inset 0 1px 0 #75cfff24,0 0 14px #067bd52d; }
+html[data-theme="dark"] .theme-button { color:#c9e6ff; }
+html[data-theme="dark"] .theme-button.is-active { background:linear-gradient(180deg,#12b5ff,#075aca);color:#fff;box-shadow:0 0 15px #079cfb73; }
+html[data-theme="dark"] .theme-button:not(.is-active):hover { background:#14447c;color:#fff; }
+html[data-theme="dark"] .glass-card {
+  background:linear-gradient(152deg,rgba(12,41,81,.94),rgba(3,19,48,.97));
+  border:1px solid #1688e5;
+  box-shadow:0 0 0 1px rgba(0,118,247,.1),0 8px 28px rgba(0,7,22,.5),inset 0 1px 0 rgba(99,184,255,.23);
+}
+html[data-theme="dark"] .url-card h2,
+html[data-theme="dark"] .customize-card h2 { color:#f4f8ff;text-shadow:0 1px 4px #031b47; }
+html[data-theme="dark"] .section-head .section-icon { filter:brightness(0) saturate(100%) invert(69%) sepia(65%) saturate(1498%) hue-rotate(164deg) brightness(107%); }
+html[data-theme="dark"] .url-field { background:rgba(2,22,52,.95);border:1.5px solid #25a8fc;box-shadow:inset 0 0 0 1px rgba(45,142,243,.10); }
+html[data-theme="dark"] .url-field:focus-within { border-color:#73d7ff;box-shadow:0 0 0 3px rgba(14,170,245,.24); }
+html[data-theme="dark"] .url-field input { color:#f4faff; }
+html[data-theme="dark"] .url-field input::placeholder { color:#b8d0ed; }
+html[data-theme="dark"] .inline-link-icon { filter:brightness(0) invert(1);opacity:.78; }
+html[data-theme="dark"] .helper { color:#b1cce7; }
+html[data-theme="dark"] .validation-error { color:#ffb2bd; }
+html[data-theme="dark"] .clear-input { color:#d3e7fa;background:#28446a; }
+html[data-theme="dark"] .tab {
+  background:linear-gradient(180deg,#193963,#0b2144);color:#ecf7ff;
+  border-color:#3f75b4;box-shadow:inset 0 1px 0 rgba(161,213,255,.16);
+}
+html[data-theme="dark"] .tab:hover { border-color:#5dc5ff;background:linear-gradient(180deg,#275388,#12325d); }
+html[data-theme="dark"] .tab.is-active {
+  color:#fff;background:linear-gradient(180deg,#10b8ff,#0073ed 47%,#0952ca 100%);
+  border-color:#71dbff;box-shadow:0 0 14px rgba(0,139,255,.56),inset 0 1px 0 #c2f5ffb5;
+}
+html[data-theme="dark"] .tab:not(.is-active) .tab-icon { filter:brightness(0) invert(1); }
+html[data-theme="dark"] .tab-content { background:#fff;border-color:#7ecaff;box-shadow:0 3px 14px #02132c44; }
+/* Nền sáng bên trong tab nhằm giữ độ tương phản của tất cả control và biểu tượng. */
+html[data-theme="dark"] .preview-card { background:linear-gradient(170deg,#f7fbff,#eaf4ff);border:1px solid #5bacff;box-shadow:0 9px 29px rgba(0,5,24,.4),0 0 16px rgba(0,127,251,.2); }
+html[data-theme="dark"] .preview-note { color:#c1d9f7; }
+html[data-theme="dark"] .footer { background:linear-gradient(90deg,#021331,#064a9b 45%,#021331);border-top:1px solid #187dd6;box-shadow:0 -3px 16px rgba(0,115,232,.16); }
+
+@media(max-width:590px){
+  .theme-toolbar { justify-content:center;padding:9px 0 6px;min-height:49px; }
+  .theme-toolbar-label { display:none; }
+  .theme-button { font-size:13px;padding:7px 12px; }
+  html[data-theme="dark"] .site-shell::before,
+  html[data-theme="dark"] .site-shell::after { width:160px;height:87px;opacity:.33; }
 }

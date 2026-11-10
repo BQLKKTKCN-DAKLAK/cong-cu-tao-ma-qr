@@ -14,6 +14,25 @@ const svgPlaceholder=$('qr-placeholder');
 const preview=$('qr-preview');
 const status=$('status');
 
+// Chế độ giao diện chỉ ảnh hưởng màu sắc màn hình, không thay đổi dữ liệu QR hoặc PNG/SVG.
+function initTheme(){
+  const buttons=[...document.querySelectorAll('[data-theme-choice]')];
+  const apply=(value,save=false)=>{
+    const theme=value==='dark'?'dark':'light';
+    document.documentElement.dataset.theme=theme;
+    for(const button of buttons){
+      const selected=button.dataset.themeChoice===theme;
+      button.classList.toggle('is-active',selected);
+      button.setAttribute('aria-pressed',String(selected));
+    }
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute('content',theme==='dark'?'#06122c':'#FFFFFF');
+    if(save){try{localStorage.setItem('qr-display-theme',theme);}catch(e){/* private mode */}}
+  };
+  buttons.forEach(button=>button.addEventListener('click',()=>apply(button.dataset.themeChoice,true)));
+  apply(document.documentElement.dataset.theme==='dark'?'dark':'light');
+}
+
 function setStatus(message,kind=''){
   status.textContent=message;
   status.className=`status ${kind ? `is-${kind}` : ''}`;
@@ -339,7 +358,7 @@ function loadLibrary(url,timeout=9000){
   });
 }
 async function init(){
-  bindTabs();makeOptions();bindBasics();bindLogo();syncColors();updateLogoSizeLimit();syncEccUi();setReady(false);
+  initTheme();bindTabs();makeOptions();bindBasics();bindLogo();syncColors();updateLogoSizeLimit();syncEccUi();setReady(false);
   const sources=[
     './vendor/qrcode.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js',
