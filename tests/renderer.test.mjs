@@ -55,3 +55,16 @@ test('logo gap options reserve three increasingly wide clear zones',()=>{
  });
  assert.ok(counts[0]>counts[1]&&counts[1]>counts[2],`Các mức viền phải khác nhau: ${counts}`);
 });
+
+
+test('compact export margin is smaller than the recommended standard margin',()=>{
+ const compact=buildQrSvg(matrix,{qrMargin:2,outputSize:1024});
+ const standard=buildQrSvg(matrix,{qrMargin:4,outputSize:1024});
+ assert.match(compact,/viewBox="0 0 25 25"/);
+ assert.match(standard,/viewBox="0 0 29 29"/);
+ assert.match(compact,/width="1024" height="1024"/);
+});
+
+test('unsupported margin falls back to 4 quiet modules',()=>{
+ assert.match(buildQrSvg(matrix,{qrMargin:0}),/viewBox="0 0 29 29"/);
+});

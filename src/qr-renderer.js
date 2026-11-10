@@ -95,7 +95,7 @@ export function buildQrSvg(matrix, options = {}) {
   const cfg = {
     fg:'#000000', bg:'#FFFFFF', transparent:true, dotType:'square', eyeOuter:'square', eyeInner:'square',
     density:'high', roundness:0, outputSize:1000, logoData:'', logoSize:15, logoBackground:'transparent',
-    logoRadius:8, logoBorder:'none', ...options,
+    logoRadius:8, logoBorder:'none', qrMargin:4, ...options,
   };
   cfg.fg=normalizeHex(cfg.fg);cfg.bg=normalizeHex(cfg.bg);
   if(!cfg.fg||!cfg.bg) throw new Error('Màu HEX không hợp lệ.');
@@ -103,7 +103,8 @@ export function buildQrSvg(matrix, options = {}) {
   if (!EYE_OUTER_TYPES.some(e=>e.value===cfg.eyeOuter)) cfg.eyeOuter='square';
   if (!EYE_INNER_TYPES.some(e=>e.value===cfg.eyeInner)) cfg.eyeInner='square';
   const ratio=DENSITIES.find(e=>e.value===cfg.density)?.scale ?? 1;
-  const quiet=4, view=n+quiet*2;
+  const quiet=Number(cfg.qrMargin) === 2 ? 2 : 4; // 4 là vùng yên tĩnh chuẩn; 2 để xuất gọn hơn
+  const view=n+quiet*2;
   const size=Math.min(4096,Math.max(200,Number(cfg.outputSize)||1024));
   let out=[`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 ${view} ${view}" shape-rendering="geometricPrecision" role="img" aria-label="Mã QR">`,`<title>Mã QR</title>`];
   if(!cfg.transparent) out.push(rect(0,0,view,view,0,cfg.bg));

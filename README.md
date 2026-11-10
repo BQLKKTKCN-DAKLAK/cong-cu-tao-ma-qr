@@ -1,4 +1,4 @@
-# CÔNG CỤ TẠO MÃ QR – PHIÊN BẢN V1.2
+# CÔNG CỤ TẠO MÃ QR – PHIÊN BẢN V1.2.1
 
 **Đơn vị:** Văn phòng Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk  
 **Giao diện:** Nền sáng (trắng – xanh nhạt), xanh dương chủ đạo, tiêu đề phần mềm màu đỏ – theo mẫu thiết kế đã được duyệt.  
@@ -89,3 +89,10 @@ Xem [HUONG_DAN_TRIEN_KHAI.md](HUONG_DAN_TRIEN_KHAI.md). Nếu nâng cấp từ V
 > Công cụ tạo mã QR • Bản quyền thuộc Văn phòng Ban Quản lý các khu kinh tế và các khu công nghiệp Đắk Lắk
 
 Thành phần nguồn mở của bên thứ ba: xem [`LICENSE-THIRD-PARTY.md`](LICENSE-THIRD-PARTY.md).
+
+
+### Thay đổi V1.2.1
+- Lề ảnh QR gọn 2 mô-đun theo mặc định khi xuất Word, hoặc chọn lề chuẩn 4 mô-đun theo khuyến nghị QR cho môi trường quét khó. Cả PNG và SVG đều áp dụng.
+- Khi có logo, mức sửa lỗi L bị khóa; có thể chọn M/Q/H; mặc định H. Nếu đang chọn L rồi tải logo, tự chuyển M. Giới hạn kích thước logo: M tối đa 15%, Q tối đa 18%, H tối đa 22%.
+- Hai icon nhập URL và tùy chỉnh được vẽ lại thành nét xanh PNG trong suốt, không nền.
+- Chức năng và giao diện còn lại của V1.2 được giữ nguyên.

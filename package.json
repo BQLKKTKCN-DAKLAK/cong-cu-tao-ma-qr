@@ -1,7 +1,7 @@
 {
   "name": "cong-cu-tao-ma-qr",
   "private": true,
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Công cụ tạo mã QR - giao diện nền sáng - Văn phòng Ban Quản lý các KKT và KCN Đắk Lắk",
   "type": "module",
   "scripts": {

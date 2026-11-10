@@ -7,7 +7,7 @@ const $=id=>document.getElementById(id);
 const state={
   url:'',dotType:'square',eyeOuter:'square',eyeInner:'square',roundness:0,ecc:'H',density:'high',
   fg:'#0B3D7E',bg:'#FFFFFF',transparent:true,logoData:'',logoSize:15,
-  logoBackground:'transparent',logoRadius:8,logoBorder:'none',outputSize:1024,
+  logoBackground:'transparent',logoRadius:8,logoBorder:'none',outputSize:1024,qrMargin:2,
 };
 let libraryReady=false,svgMarkup='',timer=null,renderSerial=0;
 const svgPlaceholder=$('qr-placeholder');
@@ -47,11 +47,13 @@ function makeChoice(containerId,entries,key,mini=false){
     else b.textContent=label;
     b.addEventListener('click',()=>{
       state[key]=value;
+      if(key==='ecc') updateLogoSizeLimit();
       for(const child of box.querySelectorAll('button')){
         const yes=child.dataset.value===value;
         child.classList.toggle('is-selected',yes);
         child.setAttribute('aria-pressed',String(yes));
       }
+      if(key==='ecc') syncEccUi();
       scheduleRender();
     });
     box.appendChild(b);
@@ -189,18 +191,32 @@ async function parsePng(file){
 function resetLogo(){
   state.logoData='';$('logo-input').value='';$('logo-file').hidden=true;
   $('logo-thumb').removeAttribute('src');
-  $('ecc-notice').hidden=true;
+  updateLogoSizeLimit();
   syncEccUi();
   scheduleRender();
 }
+// Giữ linh hoạt M / Q / H khi chèn logo. Mức L bị khóa để giảm rủi ro quét lỗi.
+// Giới hạn tỷ lệ logo nhỏ hơn tại mức M và Q để giảm diện tích dữ liệu bị che.
+const LOGO_LIMITS={M:15,Q:18,H:22};
+function updateLogoSizeLimit(){
+  const slider=$('logo-size');
+  const cap=state.logoData?(LOGO_LIMITS[state.ecc] || 15):22;
+  slider.max=String(cap);
+  if(state.logoSize>cap){
+    state.logoSize=cap;
+    slider.value=String(cap);
+  }
+  $('logo-size-value').textContent=`${state.logoSize}%`;
+}
 function syncEccUi(){
-  const active=state.logoData?'H':state.ecc;
   for(const button of $('ecc-options').querySelectorAll('button')){
-    const yes=button.dataset.value===active;
-    button.disabled=Boolean(state.logoData);
+    const yes=button.dataset.value===state.ecc;
+    button.disabled=Boolean(state.logoData)&&button.dataset.value==='L';
     button.classList.toggle('is-selected',yes);
     button.setAttribute('aria-pressed',String(yes));
   }
+  $('ecc-notice').hidden=!state.logoData;
+  if(state.logoData) $('ecc-notice').textContent=`Logo đang dùng mức ${state.ecc}. Mức M yêu cầu logo nhỏ; Q hoặc H giúp quét ổn định hơn.`;
 }
 function bindLogo(){
   $('choose-logo').addEventListener('click',()=>$('logo-input').click());
@@ -219,9 +235,10 @@ async function useLogo(file){
     $('logo-filename').textContent=file.name;
     $('logo-filesize').textContent=`PNG • ${(file.size/1024).toFixed(0)} KB`;
     $('logo-file').hidden=false;
-    $('ecc-notice').hidden=false;
+    if(state.ecc==='L')state.ecc='M';
+    updateLogoSizeLimit();
     syncEccUi();
-    setStatus('Đã nhận logo PNG. Mã QR sẽ được tính lại với sửa lỗi mức H.','success');
+    setStatus(`Đã nhận logo PNG • sửa lỗi ${state.ecc}. Có thể chọn M, Q hoặc H trong tab Hình dạng.`,'success');
     scheduleRender();
   }catch(err){
     $('logo-input').value='';setStatus(err.message,'error');
@@ -239,7 +256,7 @@ function render(){
   }
   if(!libraryReady){svgMarkup='';setReady(false);setStatus('Đang tải thư viện tạo QR...');return;}
   try{
-    const level=state.logoData?'H':state.ecc;
+    const level=state.ecc;
     const matrix=qrMatrixFromFactory(window.qrcode,normalized.value,level);
     const newSvg=buildQrSvg(matrix,state);
     if(serial!==renderSerial)return;
@@ -247,7 +264,7 @@ function render(){
     svgMarkup=newSvg;
     preview.innerHTML=newSvg;
     setReady(true);
-    setStatus(state.logoData?'Đã cập nhật QR • sửa lỗi H để hỗ trợ logo.':'Đã cập nhật mã QR theo tùy chỉnh.','success');
+    setStatus(state.logoData?`Đã cập nhật QR có logo • sửa lỗi ${state.ecc}.`:'Đã cập nhật mã QR theo tùy chỉnh.','success');
   }catch(error){
     svgMarkup='';preview.replaceChildren();setReady(false);
     setStatus('Không thể tạo mã QR. Có thể URL quá dài so với mức sửa lỗi đã chọn.','error');
@@ -306,6 +323,7 @@ function bindBasics(){
   bindSlider('logo-size','logoSize','%');
   bindSlider('logo-radius','logoRadius',' px');
   $('output-size').addEventListener('change',e=>{state.outputSize=Number(e.target.value);$('output-size-value').textContent=`${state.outputSize} px`;scheduleRender();});
+  $('qr-margin').addEventListener('change',e=>{state.qrMargin=Number(e.target.value);scheduleRender();});
   $('download-btn').addEventListener('click',()=>exportQr(false));
   $('copy-btn').addEventListener('click',()=>exportQr(true));
 }
@@ -321,7 +339,7 @@ function loadLibrary(url,timeout=9000){
   });
 }
 async function init(){
-  bindTabs();makeOptions();bindBasics();bindLogo();syncColors();syncEccUi();setReady(false);
+  bindTabs();makeOptions();bindBasics();bindLogo();syncColors();updateLogoSizeLimit();syncEccUi();setReady(false);
   const sources=[
     './vendor/qrcode.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js',

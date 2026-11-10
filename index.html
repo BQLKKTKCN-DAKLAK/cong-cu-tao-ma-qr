@@ -75,9 +75,9 @@
               <div class="setting-grid-two">
                 <div class="setting-group">
                   <h3>Mức độ sửa lỗi</h3>
-                  <p class="hint">Khi có logo, hệ thống tự động sử dụng mức H.</p>
+                  <p class="hint">Khi có logo, được chọn từ M đến H. Nên dùng Q hoặc H để dễ quét hơn.</p>
                   <div id="ecc-options" class="segment-wrap" aria-label="Mức sửa lỗi"></div>
-                  <p id="ecc-notice" class="hint emph" hidden>Đang dùng mức sửa lỗi rất cao (H) vì có logo.</p>
+                  <p id="ecc-notice" class="hint emph" hidden>Logo dùng mức sửa lỗi M, Q hoặc H.</p>
                 </div>
                 <div class="setting-group last">
                   <h3>Mật độ điểm chấm <span class="info-mark" title="Điều chỉnh độ đầy của mỗi điểm, không thay đổi dữ liệu QR.">ⓘ</span></h3>
@@ -156,7 +156,15 @@
           </div>
           <div class="preview-settings">
             <div class="export-row"><label for="output-size"><img src="./assets/icons/resize.png" alt="" aria-hidden="true" /> Kích thước xuất file</label><select id="output-size"><option value="512">512 × 512 px</option><option value="1024" selected>1024 × 1024 px</option><option value="2048">2048 × 2048 px</option></select><output id="output-size-value" for="output-size" class="visually-hidden">1024 px</output></div>
-            <div class="export-format-field"><p class="export-label"><img src="./assets/icons/file-line.png" alt="" aria-hidden="true" /> Loại file</p><div id="export-format" class="format-choices" role="radiogroup" aria-label="Chọn loại file"><label><input type="radio" name="format" value="png" checked /><span>PNG (đề xuất)</span></label><label><input type="radio" name="format" value="svg" /><span>SVG</span></label></div></div>
+            <div class="export-row compact-margin-row">
+            <label for="qr-margin"><img src="./assets/icons/resize.png" alt="" aria-hidden="true" /> Lề ảnh mã QR</label>
+            <select id="qr-margin" aria-label="Khoảng lề mã QR xuất ra">
+              <option value="2" selected>Gọn – 2 ô</option>
+              <option value="4">Chuẩn – 4 ô</option>
+            </select>
+          </div>
+          <p class="margin-hint">Lề gọn giảm khoảng trống khi chèn Word. Chọn lề chuẩn nếu in ấn hoặc môi trường quét khó.</p>
+          <div class="export-format-field"><p class="export-label"><img src="./assets/icons/file-line.png" alt="" aria-hidden="true" /> Loại file</p><div id="export-format" class="format-choices" role="radiogroup" aria-label="Chọn loại file"><label><input type="radio" name="format" value="png" checked /><span>PNG (đề xuất)</span></label><label><input type="radio" name="format" value="svg" /><span>SVG</span></label></div></div>
             <div class="export-actions"><button type="button" id="download-btn" class="primary-button" disabled><img src="./assets/icons/download.png" alt="" aria-hidden="true" /> Tải xuống</button><button type="button" id="copy-btn" class="secondary-button" disabled><img src="./assets/icons/copy.png" alt="" aria-hidden="true" /> Sao chép</button></div>
             <p id="status" class="status" role="status" aria-live="polite">Đang tải thư viện tạo mã QR...</p>
           </div>

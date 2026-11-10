@@ -1,3 +1,8 @@
+## V1.2.1 – Điều chỉnh xuất ảnh và logo
+- Bổ sung lề QR gọn 2 mô-đun (mặc định) và lề chuẩn 4 mô-đun. Lưu ý lề chuẩn nên dùng trong môi trường quét khó.
+- Cho phép M/Q/H khi có logo, hạn chế kích cỡ theo mức sửa lỗi; tự nâng từ L lên M nếu tải logo.
+- Thay hai icon đầu mục bằng PNG xanh không nền.
+
 # NHẬT KÝ PHIÊN BẢN
 
 ## V1.2 – Giao diện nền sáng
